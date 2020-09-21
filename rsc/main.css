@@ -1,0 +1,12 @@
+/**
+ * main.css
+ * Main styling, animations, and other misc. snippets.
+ */
+
+#background-layer {
+	z-index: 1;
+}
+
+#foreground-layer {
+	z-index: 2;
+}
