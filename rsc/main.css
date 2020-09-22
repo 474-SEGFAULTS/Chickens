@@ -3,6 +3,10 @@
  * Main styling, animations, and other misc. snippets.
  */
 
+#tiles {
+	display: none;
+}
+
 #background-layer {
 	z-index: 1;
 }
