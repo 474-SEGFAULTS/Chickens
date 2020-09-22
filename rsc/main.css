@@ -10,3 +10,31 @@
 #foreground-layer {
 	z-index: 2;
 }
+
+.button{
+	font-family: Gloria Hallelujah;
+	background-color:  rgb(52, 115, 173); /* Green */
+    color: white;
+    font-size: 20px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(92, 122, 168);
+    color: white;
+}
+
+/* title */
+h1{
+	font-family: Gloria Hallelujah;
+	text-align: center;
+	font-size: 300%;
+}
+
+
+
+
+
+
