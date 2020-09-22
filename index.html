@@ -25,35 +25,10 @@
 	<script src="rsc/renderer.js"></script>
 	<script src="rsc/game.js"></script>
 
-	<style type="text/css">
-		body {
-			width: 100vw;
-			height: 100vh;
-			background-position: center 0;
-		}
-
-		#main_menu {
-			position: absolute;
-			transform: translateX(-50%) translateY(-50%);
-			left: 50%;
-			top: 50%;
-			width: 20%;
-			height: 30%;
-		}
-
-		#menuScreen {
-			background-image: url('rsc/img/main_menu_background.jpg');
-			background-size: 100% 100%;
-			background-repeat: no-repeat;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-
-		}
-	</style>
 </head>
 
 <body>
+	<!-- main_menu -->
 	<div id='menuScreen'>
 		<div id="game">
 			<div id="background-layer"></div>
@@ -64,7 +39,7 @@
 		<div id="title">
 			<h1>Chickens</h1>
 		</div>
-		<div id="main_menu" style="text-align: center">
+		<div id="buttons" style="text-align: center">
 
 			<p><button id='singlePlayerbtn' type="button" class="button">
 				singlePlayer
@@ -75,16 +50,15 @@
 			</button></p>
 		</div>
 
-
-		<div id='singlePlayer'>
-
-		</div>
-
-		<div id='multiPlayer'>
-
-		</div>
-
 		
+	</div>
+	
+	<div id='singlePlayer'>
+		<p>SinglePlayer Scene</p>
+	</div>
+
+	<div id='multiPlayer'>
+		<p>MultiPlayer Scene</p>
 	</div>
 
 </body>
