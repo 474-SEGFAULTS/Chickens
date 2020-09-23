@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<!--
+
+<head>
+	<!--
 		Chickens, https://github.com/474-SEGFAULTS/Chickens
 
 		Members:
@@ -13,21 +14,57 @@
 
 		Team Name: The SegFaults
 		-->
-		<meta charset="utf-8">
+	<meta charset="utf-8">
 
-		<title>Chickens: A Worm-like Game</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<link rel="stylesheet" href="rsc/main.css">
 
-	</head>
-	<body>
+	<title>Chickens: A Worm-like Game</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="rsc/main.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Gloria+Hallelujah&family=Permanent+Marker&display=swap"
+		rel="stylesheet">
+	<script src="rsc/renderer.js"></script>
+	<script src="rsc/game.js"></script>
+  	<script src="rsc/sounds.js"></script>
+
+</head>
+
+
+<body>
+	<!-- main_menu -->
+	<div id='menuScreen'>
 		<div id="game">
 			<div id="background-layer"></div>
 			<div id="foreground-layer"></div>
 		</div>
 
-		<script src="rsc/sounds.js"></script>
-		<script src="rsc/renderer.js"></script>
-		<script src="rsc/game.js"></script>
-	</body>
+
+		<div id="title">
+			<h1>Chickens</h1>
+		</div>
+		<div id="buttons" style="text-align: center">
+
+			<p><button id='singlePlayerbtn' type="button" class="button">
+				singlePlayer
+			</button></p>
+			
+			<p><button id='multiPlayerbtn' type="button" class="button">
+				multiPlayer
+			</button></p>
+		</div>
+
+		
+	</div>
+	
+	<div id='singlePlayer'>
+		<p>SinglePlayer Scene</p>
+	</div>
+
+	<div id='multiPlayer'>
+		<p>MultiPlayer Scene</p>
+	</div>
+
+</body>
+
 </html>
+
