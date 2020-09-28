@@ -7,6 +7,10 @@
 	display: none;
 }
 
+.hide {
+	display: none;
+}
+
 #background-layer {
 	z-index: 1;
 }
