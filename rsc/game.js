@@ -9,24 +9,27 @@
 // handle all the key press
 
 document.addEventListener('keydown', function(event){
-    if(event.key=='w' | event.key=='ArrowUp'){
+    if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
         alert('up');
         move('up');
     }
-    else if(event.key=='s' | event.key=='ArrowDown'){
+    else if(event.key.toLowerCase()=='s' | event.key=='ArrowDown'){
         alert('down');
         move('down');
     }
-    else if(event.key=='a' | event.key=='ArrowLeft'){
+    else if(event.key.toLowerCase()=='a' | event.key=='ArrowLeft'){
         move('left');
         alert('left');
     }
-    else if(event.key=='d' | event.key=='ArrowRight'){
+    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
         alert('right');
         move('right');
     }
-    else if(event.key=='e'){
+    else if(event.key.toLowerCase()=='e'){
         alert('open inventory');
+    }
+    else if(event.key=="Esacpe"){
+        alert('pause');
     }
 });
 // Author: Jiamian
