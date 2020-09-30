@@ -5,6 +5,7 @@
 
 // ...
 //Add cursor select sound on all button
+var sounds=["CursorSelect","explosion1","WalkExpand"];
 $(document).ready(function (){
   $('button').click(function(){
     playSound("CursorSelect");
@@ -13,13 +14,24 @@ $(document).ready(function (){
 //TODO
 //Attach all the sounds to the html page when loading
 function addSounds() {
-  let newSrc=document.createElement("source");
-  newSrc.setAttribute('src','rsc/sounds/CursorSelect.wav');
-  newSrc.setAttribute('id','CursorSelect');
-  document.getElementById('sounds').appendChild(newSrc);
+  for(var i=0;i<sounds.length;i++){
+    let newSrc=document.createElement("audio");
+    newSrc.setAttribute('src','rsc/sounds/'+sounds[i]+'.wav');
+    newSrc.setAttribute('id',sounds[i]);
+    $('body').append(newSrc);
+  }
 };
 
 //Play sound by finding it's if
-function playSound(soundid){
+function playSound(soundid,loop){
+  if(loop){
+    document.getElementById(soundid).loop = true;
+  }
   document.getElementById(soundid).play();
+}
+
+function stopSound(soundid){
+  let audio=document.getElementById(soundid);
+  audio.pause();
+  audio.currentTime=0;
 }
