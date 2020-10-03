@@ -186,6 +186,8 @@ Renderer.prototype.clear = function() {
  * @param 	dy	Delta vertical (change in position.)
  */
 Renderer.prototype.moveTile = function(id, dx, dy) {
+	this.tiles[id].x += dx;
+	this.tiles[id].y += dy;
 	this.viewport.children[id].setAttribute(
 		'style',
 		'top: ' + (this.tiles[id].y += dy) + // update virtual positions and DOM
@@ -204,7 +206,8 @@ Renderer.prototype.moveTile = function(id, dx, dy) {
  */
 Renderer.prototype.draw = function(imageName, whereX, whereY) {
 	var newImage = document.createElement('img');
-	newImage.id = this.tiles.length + 1;
+	var newID = this.tiles.length + 1
+	newImage.id = newID;
 	newImage.src = this.tileSource.children[imageName].src;
 	newImage.width = this.tileSource.children[imageName].width;
 	newImage.height = this.tileSource.children[imageName].height;
@@ -220,6 +223,7 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
 		x: whereX,
 		y: whereY
 	};
+	return newID;
 }
 
 // ================================== HELPERS ==================================
