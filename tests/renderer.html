@@ -13,16 +13,20 @@
 			<img id="A" src="rsc/A.png" width="128px" height="128px">
 			<img id="B" src="rsc/B.png" width="128px" height="128px">
 		</div>
-		<div>
-			<button type="button">Reset Viewport</button>
-			<button type="button">Zoom in</button>
-			<button type="button">Zoom out</button>
-			<button type="button">Move viewport top</button>
-			<button type="button">Move viewport right</button>
-			<button type="button">Move viewport down</button>
-			<button type="button">Move viewport left</button>
+		<div id="game">
+			<div id="background-layer"></div>
+			<div id="foreground-layer"></div>
+		</div>
+		<div class="control-buttons">
+			<button type="button" class="cb" id="reset">Reset Viewport</button>
+			<button type="button" class="cb" id="zoomin">Zoom in</button>
+			<button type="button" class="cb" id="zoomout">Zoom out</button>
+			<button type="button" class="cb" id="moveup">Move viewport up</button>
+			<button type="button" class="cb" id="moveright">Move viewport right</button>
+			<button type="button" class="cb" id="movedown">Move viewport down</button>
+			<button type="button" class="cb" id="moveleft">Move viewport left</button>
 		</div>
 		<script src="../rsc/renderer.js"></script>
-		<script src="../rsc/render_test.js"></script>
+		<script src="rsc/render_test.js"></script>
 	</body>
 </html>

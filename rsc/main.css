@@ -3,18 +3,34 @@
  * Main styling, animations, and other misc. snippets.
  */
 
-#tiles {
+#tiles { /* where game images to be drawn come from */
 	display: none;
 }
 
-.hide {
+.go { /* game object */
+	position: fixed; /* to set position of game objects */
+}
+
+.hide { /* don't show something */
 	display: none;
 }
 
-#background-layer {
+#background-layer { /* where the game is */
 	z-index: 1;
+	transition: all .35s ease-in-out; /* for zooming and moving viewport camera */
 }
 
-#foreground-layer {
+#foreground-layer { /* where the UI is */
 	z-index: 2;
+}
+
+.control-buttons { /* for testing purposes */
+	position: fixed;
+	z-index: 100;
+	top: 5px;
+	left: 5px;
+}
+
+.cb { /* for testing purposes */
+	margin-top: 5px;
 }
