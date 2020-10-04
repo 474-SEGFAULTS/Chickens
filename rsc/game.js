@@ -9,7 +9,7 @@
 
 
 // Author: Happy
-// jquery start new singleGameScene/multiGameScene
+// jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
     $("#singlePlayerbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
@@ -19,6 +19,11 @@ $(document).ready(function () {
     $("#instructionsbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
             $('#instructions').fadeIn('fast');
+        });  
+    });
+    $("#mainMenubtn").click(function(){
+        $('#instructions').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
         });  
     });
 });

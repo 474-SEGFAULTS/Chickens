@@ -34,6 +34,13 @@ h1{
 	font-size: 300%;
 }
 
+/* Instruction */
+h2{
+    font-family: Gloria Hallelujah;
+	text-align: center;
+	font-size: 100%;
+}
+
 #menuScreen{
     background-image: url('img/main_menu_background.jpg');
     background-size: 100% 100%;
@@ -58,7 +65,10 @@ body{
     height: 30%;
 }
 
-#singlePlayer, #instructions{
+#singlePlayer{
     display: none;
 }
 
+#instructions{
+    display: none;
+}
