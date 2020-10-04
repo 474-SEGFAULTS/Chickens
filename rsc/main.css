@@ -58,10 +58,7 @@ body{
     height: 30%;
 }
 
-
-
-
-
-#singlePlayer, #multiPlayer{
+#singlePlayer, #instructions{
     display: none;
 }
+

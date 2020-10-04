@@ -16,9 +16,9 @@ $(document).ready(function () {
             $('#singlePlayer').fadeIn('fast');
         });
     });
-    $("#multiPlayerbtn").click(function () {
+    $("#instructionsbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
-            $('#multiPlayer').fadeIn('fast');
+            $('#instructions').fadeIn('fast');
         });  
     });
 });
