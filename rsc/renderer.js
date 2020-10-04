@@ -5,9 +5,15 @@
  * moving viewport (game camera) around 2D space efficiently.
  *
  * The critical functions
- * renderer.zoomTo(x, y, zoom) zooms you in to an x, y position with a zoom.
+ * renderer.moveViewport(x, y, zoom) zooms you in to an x, y position with a zoom.
  * renderer.zoomOutMax() zooms out the maximum possible distance.
  * renderer.draw(imageName, whereX, whereY) "draws" in an image in the viewport.
+ *
+ * "shift" means currentX += deltaX as in shiftTile, shiftViewport
+ * "move" means currentX = newX as in moveTile, moveViewport
+ *
+ * @author jvillemare
+ * @date 2019-10-04
  */
 
 // structure of the renderer influenced by https://stackoverflow.com/a/2206630/13158722
@@ -122,7 +128,7 @@ Renderer.prototype.generateTranslateCSS = function(whereX, whereY) {
  * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
-Renderer.prototype.zoomTo = function(x, y, zoom) {
+Renderer.prototype.moveViewport = function(x, y, zoom) {
 	this.checkZoom(zoom);
 	this.settings.x = x;
 	this.settings.y = y;
@@ -138,7 +144,7 @@ Renderer.prototype.zoomTo = function(x, y, zoom) {
  * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
-Renderer.prototype.moveTo = function(x, y) {
+Renderer.prototype.moveViewport = function(x, y) {
 	this.settings.x = x;
 	this.settings.y = y;
 	this.updateViewport();
@@ -152,7 +158,7 @@ Renderer.prototype.moveTo = function(x, y) {
  * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
-Renderer.prototype.shiftTo = function(dx, dy) {
+Renderer.prototype.shiftViewport = function(dx, dy) {
 	this.settings.x += dx;
 	this.settings.y += dy;
 	this.updateViewport();
@@ -185,9 +191,22 @@ Renderer.prototype.clear = function() {
  * @param 	dx	Delta horizontal (change in position.)
  * @param 	dy	Delta vertical (change in position.)
  */
-Renderer.prototype.moveTile = function(id, dx, dy) {
-	this.tiles[id].x += dx;
-	this.tiles[id].y += dy;
+Renderer.prototype.moveTile = function(id, x, y) {
+	this.viewport.children[id].setAttribute(
+		'style',
+		'top: ' + (this.tiles[id].y = y) + // update virtual positions and DOM
+		'px; left: ' + (this.tiles[id].x = x) + 'px;'
+	);
+}
+
+/**
+ * Shift an existing tile from its current position by a specified amount.
+ *
+ * @param 	id 	ID of tile given by drawAt() function.
+ * @param 	dx	Delta horizontal (change in position.)
+ * @param 	dy	Delta vertical (change in position.)
+ */
+Renderer.prototype.shiftTile = function(id, dx, dy) {
 	this.viewport.children[id].setAttribute(
 		'style',
 		'top: ' + (this.tiles[id].y += dy) + // update virtual positions and DOM
@@ -228,6 +247,11 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
 
 // ================================== HELPERS ==================================
 
+/**
+ * Attached to window.onresize, automatically resizes the viewport to the full
+ * screen width and height.
+ * @return nothing.
+ */
 Renderer.prototype.resizeViewport = function() {
 	renderer.viewport.setAttribute('style', 'width: ' + document.width + 'px; height: ' + document.height + 'px;');
 }

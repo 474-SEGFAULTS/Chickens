@@ -6,7 +6,7 @@ renderer.draw('B', 128, 0);
 
 
 document.getElementById("reset").onclick = function(event) {
-	renderer.zoomTo(0, 0, 0);
+	renderer.moveViewport(0, 0, 0);
 };
 
 document.getElementById("zoomin").onclick = function(event) {
@@ -18,17 +18,17 @@ document.getElementById("zoomout").onclick = function(event) {
 };
 
 document.getElementById("moveup").onclick = function(event) {
-	renderer.shiftTo(0, -25);
+	renderer.shiftViewport(0, -25);
 };
 
 document.getElementById("moveright").onclick = function(event) {
-	renderer.shiftTo(25, 0);
+	renderer.shiftViewport(25, 0);
 };
 
 document.getElementById("movedown").onclick = function(event) {
-	renderer.shiftTo(0, 25);
+	renderer.shiftViewport(0, 25);
 };
 
 document.getElementById("moveleft").onclick = function(event) {
-	renderer.shiftTo(-25, 0);
+	renderer.shiftViewport(-25, 0);
 };
