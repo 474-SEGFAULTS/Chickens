@@ -38,11 +38,7 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
     var distSq = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
     var radiusSumSq = Math.pow(radius1 + radius2, 2);
 
-    if(distSq > radiusSumSq){
-        return false;
-    }else{
-        return true;
-    }
+    return (distSq > radiusSumSq);
 
 };
 
@@ -84,10 +80,6 @@ function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2)
     // compute the euclidean distance between E and C
     var LEC = sqrt(Math.pow(Ex - x2, 2) + Math.pow(Ey - y2, 2));
 
-    if(LEC < radius2){
-        return true;
-    }else{
-        return false;
-    }
+    return (LEC < radius2);
 
 };
