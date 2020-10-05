@@ -7,7 +7,7 @@
          "target":"."
         }
     },
- "image":"..\/terrain.png",
+ "image":"terrain.png",
  "imageheight":257,
  "imagewidth":328,
  "margin":0,
