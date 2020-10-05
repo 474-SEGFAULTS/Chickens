@@ -1,0 +1,22 @@
+{ "columns":41,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
+ "image":"..\/terrain.png",
+ "imageheight":257,
+ "imagewidth":328,
+ "margin":0,
+ "name":"terrain2",
+ "spacing":0,
+ "tilecount":1312,
+ "tiledversion":"1.4.2",
+ "tileheight":8,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":1.4
+}
