@@ -9,16 +9,21 @@
 
 
 // Author: Happy
-// jquery start new singleGameScene/multiGameScene
+// jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
     $("#singlePlayerbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
             $('#singlePlayer').fadeIn('fast');
         });
     });
-    $("#multiPlayerbtn").click(function () {
+    $("#instructionsbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
-            $('#multiPlayer').fadeIn('fast');
+            $('#instructions').fadeIn('fast');
+        });  
+    });
+    $("#mainMenubtn").click(function(){
+        $('#instructions').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
         });  
     });
 });

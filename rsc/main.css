@@ -58,6 +58,13 @@ h1{
 	font-size: 300%;
 }
 
+/* Instruction */
+h2{
+    font-family: Gloria Hallelujah;
+	text-align: center;
+	font-size: 100%;
+}
+
 #menuScreen{
     background-image: url('img/main_menu_background.jpg');
     background-size: 100% 100%;
@@ -76,12 +83,10 @@ body{
 #buttons{
     position: absolute;
     transform: translateX(-50%) translateY(-50%);
-    left: 50%;
-    top: 50%;
-    width: 20%;
-    height: 30%;
+    
 }
 
-#singlePlayer, #multiPlayer{
+#singlePlayer, #instructions { 
+    /* selector, selector means the style applies to both selectors */
     display: none;
 }
