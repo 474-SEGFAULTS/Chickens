@@ -80,18 +80,13 @@ body{
     background-position: center 0;
 }
 
-#singlePlayer, #instructions { 
-    /* selector, selector means the style applies to both selectors */
-    display: none;
-}
-
 .bell_pepper{
     display: circle;
     width: 50 px;
     height: 50 px;
     border-radius: 50%;
     background: url('img/dynamic/weapons/bell_pepper.png') center;
-    animation: rotation infinite linear move_weapon 0.5s;
+    animation: rotation infinite linear, move_weapon 0.5s;
     animation-direction: normal;
 
 }
@@ -102,7 +97,7 @@ body{
     height: 50 px;
     border-radius: 50%;
     background: url('img/dynamic/weapons/chiltepin.png') center;
-    animation: rotation infinite linear move_weapon 0.5s;
+    animation: rotation infinite linear, move_weapon 0.5s;
     animation-direction: normal;
 }
 
@@ -114,6 +109,11 @@ body{
 @keyframes move_weapon{
     from {transform: translateX(0)}
     to {transform: translateX(200px)}
+}
+
+#singlePlayer, #instructions { 
+    /* selector, selector means the style applies to both selectors */
+    display: none;
 }
 
 
