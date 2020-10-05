@@ -5,12 +5,53 @@
 
 // ..
 
+// Author: Jiamian
+// handle all the key press
 
-
+document.addEventListener('keydown', function(event){
+    if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
+        alert('up');
+        move('up');
+    }
+    else if(event.key.toLowerCase()=='s' | event.key=='ArrowDown'){
+        alert('down');
+        move('down');
+    }
+    else if(event.key.toLowerCase()=='a' | event.key=='ArrowLeft'){
+        move('left');
+        //alert('left');
+        playSound('WalkExpand',true);
+    }
+    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+        //alert('right');
+        move('right');
+        playSound('WalkExpand',true);
+    }
+    else if(event.key.toLowerCase()=='e'){
+        alert('open inventory');
+    }
+    else if(event.key=="Esacpe"){
+        alert('pause');
+    }
+});
+document.addEventListener('keyup', function(event){
+    if(event.key.toLowerCase()=='a' | event.key=='ArrowUp'){
+        stopSound('WalkExpand');
+    }
+    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+        stopSound('WalkExpand');
+    }
+});
+// Author: Jiamian
+// move the Chickens
+function move(direction){
+    //TODO
+}
 
 // Author: Happy
 // jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
+    addSounds();
     $("#singlePlayerbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
             $('#singlePlayer').fadeIn('fast');
