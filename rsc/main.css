@@ -83,7 +83,7 @@ body{
     width: 50px;
     height: 50px;
     background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
-    animation: move_weapon 1s;
+    animation: move_weapon 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -93,7 +93,7 @@ body{
     width: 50px;
     height: 50px;
     background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
-    animation: move_weapon 5s linear;
+    animation: move_weapon 1s;
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -101,14 +101,7 @@ body{
 
 @keyframes move_weapon{
     from {transform: translateX(0)}
-    to {transform: translateX(200px)}
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-    
+    to {transform: translateX(200px)}   
 }
 
 #singlePlayer, #instructions { 
