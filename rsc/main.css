@@ -40,7 +40,7 @@
 	background-color:  rgb(52, 115, 173); /* Green */
     color: white;
     font-size: 20px;
-    -webkit-transition-duration: 0.4s; 
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     cursor: pointer;
 }
@@ -60,27 +60,331 @@ h1{
 
 /* Instruction */
 h2{
-    font-family: Gloria Hallelujah;
+	font-family: Gloria Hallelujah;
 	text-align: center;
 	font-size: 100%;
 }
 
 #menuScreen{
-    background-image: url('img/main_menu_background.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+	background-image: url('img/main_menu_background.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 body{
-    width: 100vw;
-    height: 100vh;
-    background-position: center 0;
+	width: 100vw;
+	height: 100vh;
+	background-position: center 0;
 }
 
-#singlePlayer, #instructions { 
-    /* selector, selector means the style applies to both selectors */
-    display: none;
+#singlePlayer, #instructions {
+	/* selector, selector means the style applies to both selectors */
+	display: none;
 }
+
+/* sprite data
+ * all sprites are prefixed with t. they all share the terrain.png image and are
+ * 8x8 px in size. since the image is in the background, and it's only 8x8 px,
+ * we can just translate the background image around to get what we want.
+ * the values were computed with basically:
+ *
+ * >>> a = [all the values from level0.json copy and pasted into python
+ * 				interpreter]
+ * >>> unique = []
+ * >>> for num in a:
+ * ...     if num not in unique:
+ * ...             unique.append(num)
+ * >>> unique.sort()
+ * >>> for num in unique:
+ * ...     print('.t' + str(num) + ', ', end='')
+ * >>> import math
+ * >>> for num in unique:
+ * ...     print('.t' + str(num) + ' { background-position: -' +
+ * ...		str((num % 41) * 8) + 'px -' + str(math.floor(num / 41) * 8) +
+ * ...		'; }')
+ *
+ * the terrain.json specifies that the image is 41 tiles "wide", so for the tile
+ * number, just % 41 then * 8 to get it's horizontal start position in, and
+ * math.floor(num/41) * 8 to get it's vertical start position.
+ */
+.t0, .t1, .t2, .t3, .t4, .t5, .t6, .t7, .t8, .t9, .t12, .t13, .t14, .t15, .t16,
+.t42, .t43, .t44, .t45, .t46, .t47, .t48, .t49, .t51, .t52, .t53, .t54, .t55,
+.t56, .t57, .t83, .t84, .t85, .t86, .t87, .t88, .t92, .t93, .t94, .t95, .t96,
+.t98, .t124, .t125, .t126, .t127, .t128, .t129, .t134, .t135, .t137, .t139,
+.t165, .t166, .t167, .t168, .t169, .t170, .t173, .t174, .t175, .t176, .t177,
+.t178, .t179, .t180, .t181, .t182, .t183, .t184, .t206, .t207, .t208, .t209,
+.t210, .t211, .t214, .t215, .t216, .t217, .t218, .t219, .t220, .t221, .t222,
+.t223, .t224, .t225, .t247, .t248, .t249, .t250, .t251, .t252, .t253, .t254,
+.t257, .t258, .t259, .t260, .t262, .t288, .t289, .t290, .t291, .t292, .t293,
+.t294, .t295, .t303, .t475, .t593, .t594, .t595, .t596, .t597, .t598, .t599,
+.t600, .t601, .t602, .t634, .t635, .t636, .t637, .t638, .t639, .t640, .t641,
+.t642, .t643, .t675, .t676, .t677, .t678, .t679, .t680, .t681, .t682, .t683,
+.t684, .t716, .t717, .t718, .t719, .t720, .t721, .t722, .t723, .t724, .t725,
+.t751, .t752, .t753, .t754, .t755, .t757, .t758, .t759, .t760, .t761, .t762,
+.t763, .t764, .t765, .t766, .t771, .t772, .t773, .t774, .t775, .t780, .t781,
+.t782, .t792, .t793, .t794, .t795, .t796, .t798, .t799, .t800, .t801, .t802,
+.t803, .t804, .t805, .t806, .t807, .t812, .t813, .t814, .t815, .t816, .t821,
+.t822, .t823, .t831, .t832, .t833, .t834, .t835, .t836, .t837, .t839, .t840,
+.t841, .t842, .t843, .t844, .t845, .t846, .t847, .t848, .t853, .t854, .t855,
+.t856, .t857, .t862, .t863, .t864, .t872, .t873, .t874, .t875, .t876, .t877,
+.t878, .t880, .t881, .t882, .t883, .t884, .t885, .t886, .t887, .t888, .t889,
+.t894, .t895, .t896, .t897, .t898, .t2147483858, .t2684354611, .t2684354612,
+.t2684354652, .t2684354653, {
+	background-image: url('rsc/data/map/terrain.png');
+	background-repeat: no-repeat;
+	height: 8px;
+	width: 8px;
+}
+
+.t0 { background-position: -0px -0px; }
+.t1 { background-position: -8px -0px; }
+.t2 { background-position: -16px -0px; }
+.t3 { background-position: -24px -0px; }
+.t4 { background-position: -32px -0px; }
+.t5 { background-position: -40px -0px; }
+.t6 { background-position: -48px -0px; }
+.t7 { background-position: -56px -0px; }
+.t8 { background-position: -64px -0px; }
+.t9 { background-position: -72px -0px; }
+.t12 { background-position: -96px -0px; }
+.t13 { background-position: -104px -0px; }
+.t14 { background-position: -112px -0px; }
+.t15 { background-position: -120px -0px; }
+.t16 { background-position: -128px -0px; }
+.t42 { background-position: -8px -8px; }
+.t43 { background-position: -16px -8px; }
+.t44 { background-position: -24px -8px; }
+.t45 { background-position: -32px -8px; }
+.t46 { background-position: -40px -8px; }
+.t47 { background-position: -48px -8px; }
+.t48 { background-position: -56px -8px; }
+.t49 { background-position: -64px -8px; }
+.t51 { background-position: -80px -8px; }
+.t52 { background-position: -88px -8px; }
+.t53 { background-position: -96px -8px; }
+.t54 { background-position: -104px -8px; }
+.t55 { background-position: -112px -8px; }
+.t56 { background-position: -120px -8px; }
+.t57 { background-position: -128px -8px; }
+.t83 { background-position: -8px -16px; }
+.t84 { background-position: -16px -16px; }
+.t85 { background-position: -24px -16px; }
+.t86 { background-position: -32px -16px; }
+.t87 { background-position: -40px -16px; }
+.t88 { background-position: -48px -16px; }
+.t92 { background-position: -80px -16px; }
+.t93 { background-position: -88px -16px; }
+.t94 { background-position: -96px -16px; }
+.t95 { background-position: -104px -16px; }
+.t96 { background-position: -112px -16px; }
+.t98 { background-position: -128px -16px; }
+.t124 { background-position: -8px -24px; }
+.t125 { background-position: -16px -24px; }
+.t126 { background-position: -24px -24px; }
+.t127 { background-position: -32px -24px; }
+.t128 { background-position: -40px -24px; }
+.t129 { background-position: -48px -24px; }
+.t134 { background-position: -88px -24px; }
+.t135 { background-position: -96px -24px; }
+.t137 { background-position: -112px -24px; }
+.t139 { background-position: -128px -24px; }
+.t165 { background-position: -8px -32px; }
+.t166 { background-position: -16px -32px; }
+.t167 { background-position: -24px -32px; }
+.t168 { background-position: -32px -32px; }
+.t169 { background-position: -40px -32px; }
+.t170 { background-position: -48px -32px; }
+.t173 { background-position: -72px -32px; }
+.t174 { background-position: -80px -32px; }
+.t175 { background-position: -88px -32px; }
+.t176 { background-position: -96px -32px; }
+.t177 { background-position: -104px -32px; }
+.t178 { background-position: -112px -32px; }
+.t179 { background-position: -120px -32px; }
+.t180 { background-position: -128px -32px; }
+.t181 { background-position: -136px -32px; }
+.t182 { background-position: -144px -32px; }
+.t183 { background-position: -152px -32px; }
+.t184 { background-position: -160px -32px; }
+.t206 { background-position: -8px -40px; }
+.t207 { background-position: -16px -40px; }
+.t208 { background-position: -24px -40px; }
+.t209 { background-position: -32px -40px; }
+.t210 { background-position: -40px -40px; }
+.t211 { background-position: -48px -40px; }
+.t214 { background-position: -72px -40px; }
+.t215 { background-position: -80px -40px; }
+.t216 { background-position: -88px -40px; }
+.t217 { background-position: -96px -40px; }
+.t218 { background-position: -104px -40px; }
+.t219 { background-position: -112px -40px; }
+.t220 { background-position: -120px -40px; }
+.t221 { background-position: -128px -40px; }
+.t222 { background-position: -136px -40px; }
+.t223 { background-position: -144px -40px; }
+.t224 { background-position: -152px -40px; }
+.t225 { background-position: -160px -40px; }
+.t247 { background-position: -8px -48px; }
+.t248 { background-position: -16px -48px; }
+.t249 { background-position: -24px -48px; }
+.t250 { background-position: -32px -48px; }
+.t251 { background-position: -40px -48px; }
+.t252 { background-position: -48px -48px; }
+.t253 { background-position: -56px -48px; }
+.t254 { background-position: -64px -48px; }
+.t257 { background-position: -88px -48px; }
+.t258 { background-position: -96px -48px; }
+.t259 { background-position: -104px -48px; }
+.t260 { background-position: -112px -48px; }
+.t262 { background-position: -128px -48px; }
+.t288 { background-position: -8px -56px; }
+.t289 { background-position: -16px -56px; }
+.t290 { background-position: -24px -56px; }
+.t291 { background-position: -32px -56px; }
+.t292 { background-position: -40px -56px; }
+.t293 { background-position: -48px -56px; }
+.t294 { background-position: -56px -56px; }
+.t295 { background-position: -64px -56px; }
+.t303 { background-position: -128px -56px; }
+.t475 { background-position: -192px -88px; }
+.t593 { background-position: -152px -112px; }
+.t594 { background-position: -160px -112px; }
+.t595 { background-position: -168px -112px; }
+.t596 { background-position: -176px -112px; }
+.t597 { background-position: -184px -112px; }
+.t598 { background-position: -192px -112px; }
+.t599 { background-position: -200px -112px; }
+.t600 { background-position: -208px -112px; }
+.t601 { background-position: -216px -112px; }
+.t602 { background-position: -224px -112px; }
+.t634 { background-position: -152px -120px; }
+.t635 { background-position: -160px -120px; }
+.t636 { background-position: -168px -120px; }
+.t637 { background-position: -176px -120px; }
+.t638 { background-position: -184px -120px; }
+.t639 { background-position: -192px -120px; }
+.t640 { background-position: -200px -120px; }
+.t641 { background-position: -208px -120px; }
+.t642 { background-position: -216px -120px; }
+.t643 { background-position: -224px -120px; }
+.t675 { background-position: -152px -128px; }
+.t676 { background-position: -160px -128px; }
+.t677 { background-position: -168px -128px; }
+.t678 { background-position: -176px -128px; }
+.t679 { background-position: -184px -128px; }
+.t680 { background-position: -192px -128px; }
+.t681 { background-position: -200px -128px; }
+.t682 { background-position: -208px -128px; }
+.t683 { background-position: -216px -128px; }
+.t684 { background-position: -224px -128px; }
+.t716 { background-position: -152px -136px; }
+.t717 { background-position: -160px -136px; }
+.t718 { background-position: -168px -136px; }
+.t719 { background-position: -176px -136px; }
+.t720 { background-position: -184px -136px; }
+.t721 { background-position: -192px -136px; }
+.t722 { background-position: -200px -136px; }
+.t723 { background-position: -208px -136px; }
+.t724 { background-position: -216px -136px; }
+.t725 { background-position: -224px -136px; }
+.t751 { background-position: -104px -144px; }
+.t752 { background-position: -112px -144px; }
+.t753 { background-position: -120px -144px; }
+.t754 { background-position: -128px -144px; }
+.t755 { background-position: -136px -144px; }
+.t757 { background-position: -152px -144px; }
+.t758 { background-position: -160px -144px; }
+.t759 { background-position: -168px -144px; }
+.t760 { background-position: -176px -144px; }
+.t761 { background-position: -184px -144px; }
+.t762 { background-position: -192px -144px; }
+.t763 { background-position: -200px -144px; }
+.t764 { background-position: -208px -144px; }
+.t765 { background-position: -216px -144px; }
+.t766 { background-position: -224px -144px; }
+.t771 { background-position: -264px -144px; }
+.t772 { background-position: -272px -144px; }
+.t773 { background-position: -280px -144px; }
+.t774 { background-position: -288px -144px; }
+.t775 { background-position: -296px -144px; }
+.t780 { background-position: -8px -152px; }
+.t781 { background-position: -16px -152px; }
+.t782 { background-position: -24px -152px; }
+.t792 { background-position: -104px -152px; }
+.t793 { background-position: -112px -152px; }
+.t794 { background-position: -120px -152px; }
+.t795 { background-position: -128px -152px; }
+.t796 { background-position: -136px -152px; }
+.t798 { background-position: -152px -152px; }
+.t799 { background-position: -160px -152px; }
+.t800 { background-position: -168px -152px; }
+.t801 { background-position: -176px -152px; }
+.t802 { background-position: -184px -152px; }
+.t803 { background-position: -192px -152px; }
+.t804 { background-position: -200px -152px; }
+.t805 { background-position: -208px -152px; }
+.t806 { background-position: -216px -152px; }
+.t807 { background-position: -224px -152px; }
+.t812 { background-position: -264px -152px; }
+.t813 { background-position: -272px -152px; }
+.t814 { background-position: -280px -152px; }
+.t815 { background-position: -288px -152px; }
+.t816 { background-position: -296px -152px; }
+.t821 { background-position: -8px -160px; }
+.t822 { background-position: -16px -160px; }
+.t823 { background-position: -24px -160px; }
+.t831 { background-position: -88px -160px; }
+.t832 { background-position: -96px -160px; }
+.t833 { background-position: -104px -160px; }
+.t834 { background-position: -112px -160px; }
+.t835 { background-position: -120px -160px; }
+.t836 { background-position: -128px -160px; }
+.t837 { background-position: -136px -160px; }
+.t839 { background-position: -152px -160px; }
+.t840 { background-position: -160px -160px; }
+.t841 { background-position: -168px -160px; }
+.t842 { background-position: -176px -160px; }
+.t843 { background-position: -184px -160px; }
+.t844 { background-position: -192px -160px; }
+.t845 { background-position: -200px -160px; }
+.t846 { background-position: -208px -160px; }
+.t847 { background-position: -216px -160px; }
+.t848 { background-position: -224px -160px; }
+.t853 { background-position: -264px -160px; }
+.t854 { background-position: -272px -160px; }
+.t855 { background-position: -280px -160px; }
+.t856 { background-position: -288px -160px; }
+.t857 { background-position: -296px -160px; }
+.t862 { background-position: -8px -168px; }
+.t863 { background-position: -16px -168px; }
+.t864 { background-position: -24px -168px; }
+.t872 { background-position: -88px -168px; }
+.t873 { background-position: -96px -168px; }
+.t874 { background-position: -104px -168px; }
+.t875 { background-position: -112px -168px; }
+.t876 { background-position: -120px -168px; }
+.t877 { background-position: -128px -168px; }
+.t878 { background-position: -136px -168px; }
+.t880 { background-position: -152px -168px; }
+.t881 { background-position: -160px -168px; }
+.t882 { background-position: -168px -168px; }
+.t883 { background-position: -176px -168px; }
+.t884 { background-position: -184px -168px; }
+.t885 { background-position: -192px -168px; }
+.t886 { background-position: -200px -168px; }
+.t887 { background-position: -208px -168px; }
+.t888 { background-position: -216px -168px; }
+.t889 { background-position: -224px -168px; }
+.t894 { background-position: -264px -168px; }
+.t895 { background-position: -272px -168px; }
+.t896 { background-position: -280px -168px; }
+.t897 { background-position: -288px -168px; }
+.t898 { background-position: -296px -168px; }
+.t2147483858 { background-position: -24px -419021240px; }
+.t2684354611 { background-position: -224px -523776504px; }
+.t2684354612 { background-position: -232px -523776504px; }
+.t2684354652 { background-position: -224px -523776512px; }
+.t2684354653 { background-position: -232px -523776512px; }

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 	<!--
 		Chickens, https://github.com/474-SEGFAULTS/Chickens
@@ -16,7 +15,6 @@
 		-->
 	<meta charset="utf-8">
 
-
 	<title>Chickens: A Worm-like Game</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="rsc/main.css">
@@ -25,15 +23,15 @@
 		rel="stylesheet">
 	<script src="rsc/renderer.js"></script>
 	<script src="rsc/game.js"></script>
-  <script src="rsc/sounds.js"></script>
+	<script src="rsc/sounds.js"></script>
 
 </head>
 <body>
-  <div id="tiles">
+	<div id="tiles">
 			<!-- Put all map, player images that will be "drawn" on the screen
 				here as img tags.
 			-->
-			<img id="example" src="..." width="100px" height="100px">
+			<img id="example" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
 		</div>
 	<!-- main_menu -->
 	<div id='menuScreen'>
@@ -41,7 +39,6 @@
 			<div id="background-layer"></div>
 			<div id="foreground-layer"></div>
 		</div>
-
 
 		<div id="title">
 			<h1>Chickens</h1>
@@ -51,15 +48,13 @@
 			<p><button id='singlePlayerbtn' type="button" class="button">
 				singlePlayer
 			</button></p>
-			
+
 			<p><button id='instructionsbtn' type="button" class="button">
 				instructions
 			</button></p>
 		</div>
-
-		
 	</div>
-	
+
 	<!-- singel_player -->
 	<div id='singlePlayer'>
 		<p>SinglePlayer Scene</p>
@@ -87,6 +82,4 @@
 
 	</div>
 </body>
-
 </html>
-

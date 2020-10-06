@@ -29,9 +29,11 @@ var defaultViewportState = {
 /**
  * Constructor. By default, pass the ID of the viewport.
  *
- * @param 	viewport 	Think of this as the game window, because it is.
- * @param 	tileSource 	Where the tiles come from to draw from.
- * @param 	settings 	Settings for the camera behavior. Change if you need to.
+ * @param 	{selector} viewport 	Think of this as the game window, because it
+ *									is.
+ * @param 	{selector} tileSource 	Where the tiles come from to draw from.
+ * @param 	{dictionary} settings 	Settings for the camera behavior. Change if
+ *									you need to.
  * @return nothing.
  */
 var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
@@ -50,7 +52,7 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 /**
  * Internal function to double check that the zoom level is valid.
  *
- * @param 	zoom 	Zoom level being checked.
+ * @param 	{int}	zoom 	Zoom level being checked.
  * @return nothing.
  * @throws 2 exceptions.
  */
@@ -64,7 +66,7 @@ Renderer.prototype.checkZoom = function(zoom) {
 /**
  * Change the camera's zoom level.
  *
- * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
+ * @param 	{int}	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
 Renderer.prototype.setZoom = function(zoom) {
@@ -89,7 +91,7 @@ Renderer.prototype.updateViewport = function() {
 /**
  * Generate the necessary CSS scale function.
  *
- * @param 	zoom 	Current zoom level.
+ * @param 	{int}	zoom 	Current zoom level.
  * @return the CSS that zooms in the viewport.
  */
 Renderer.prototype.generateZoomCSS = function(zoom) {
@@ -110,8 +112,8 @@ Renderer.prototype.generateZoomCSS = function(zoom) {
 /**
  * Generate the necessary CSS translate function to move the viewport.
  *
- * @param 	whereX 		Horizontal position.
- * @param 	whereY 		Vertical position.
+ * @param 	{int}	whereX 		Horizontal position.
+ * @param 	{int}	whereY 		Vertical position.
  * @return nothing.
  */
 Renderer.prototype.generateTranslateCSS = function(whereX, whereY) {
@@ -123,9 +125,9 @@ Renderer.prototype.generateTranslateCSS = function(whereX, whereY) {
 /**
  * Zoom and move viewport to a position and magnification.
  *
- * @param 	x 		Horizontal.
- * @param 	y 		Vertical.
- * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
+ * @param 	{int}	x 		Horizontal.
+ * @param 	{int}	y 		Vertical.
+ * @param 	{int}	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
 Renderer.prototype.moveViewport = function(x, y, zoom) {
@@ -139,9 +141,9 @@ Renderer.prototype.moveViewport = function(x, y, zoom) {
 /**
  * Zoom and move viewport to a new position.
  *
- * @param 	x 		Horizontal.
- * @param 	y 		Vertical.
- * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
+ * @param 	{int}	x 		Horizontal.
+ * @param 	{int}	y 		Vertical.
+ * @param 	{int}	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
 Renderer.prototype.moveViewport = function(x, y) {
@@ -153,9 +155,9 @@ Renderer.prototype.moveViewport = function(x, y) {
 /**
  * Shift the current viewport position by a translational amount.
  *
- * @param 	x 		Horizontal translation.
- * @param 	y 		Vertical translation.
- * @param 	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
+ * @param 	{int}	x 		Horizontal translation.
+ * @param 	{int}	y 		Vertical translation.
+ * @param 	{int}	zoom	viewportState.minZoom < zoom < viewportState.maxZoom
  * @return nothing
  */
 Renderer.prototype.shiftViewport = function(dx, dy) {
@@ -185,11 +187,59 @@ Renderer.prototype.clear = function() {
 }
 
 /**
+ * Draw a "sprite" (sub-image) from a tileset at an x and y.
+ *
+ * @param 	{int}	tileID 		ID of tilesheet in tileSource.
+ * @param 	{int}	spriteID	ID of sprite in tilesheet.
+ * @param 	{int} 	whereX 		Horizontal position to draw.
+ * @param 	{int} 	whereY			Vertical position to draw.
+ * @return	{int} 	ID of drawn sprite in renderer. Is used when moving drawn
+ *					sprites with Renderer.moveTile
+ */
+Renderer.prototype.drawFromTileset = function(tileID, spriteID, whereX, whereY) {
+	var newSprite = document.createElement('div');
+	var newID = this.tiles.length + 1;
+	var spriteID = 't' + tileID;
+	newSprite.id = newID;
+	newSprite.classList = spriteID; // game object class, see main.css
+	newSprite.setAttribute(
+		'style',
+		'top: ' + whereY + // update virtual positions and DOM
+		'px; left: ' + whereX + 'px;'
+	);
+	this.viewport.appendChild(newImage);
+	this.tiles[this.tiles.length + 1] = {
+		image: imageName,
+		x: whereX,
+		y: whereY
+	};
+	return newID;
+}
+
+/**
+ * Draw map to viewport from map data.
+ *
+ * @param	{url} 	mapSource 	JSON containing map data.
+ * @return nothing.
+ */
+Renderer.prototype.drawMap = function(mapSource) {
+	var map = fetch(mapSource).then(response => response.json());
+	var width = map.layers[0].width, height = map.layers[0].height;
+	map = map.layers[0].data; // extract just map data
+
+	map.forEach(function(element, index) {
+		if(element != 0) {
+			// ...
+		}
+	});
+}
+
+/**
  * Move an existing tile from its current position by a specified amount.
  *
- * @param 	id 	ID of tile given by drawAt() function.
- * @param 	dx	Delta horizontal (change in position.)
- * @param 	dy	Delta vertical (change in position.)
+ * @param 	{int} 	id	ID of tile given by drawAt() function.
+ * @param 	{int}	x 	Delta horizontal (change in position.)
+ * @param 	{int}	y 	Delta vertical (change in position.)
  */
 Renderer.prototype.moveTile = function(id, x, y) {
 	this.viewport.children[id].setAttribute(
@@ -202,9 +252,9 @@ Renderer.prototype.moveTile = function(id, x, y) {
 /**
  * Shift an existing tile from its current position by a specified amount.
  *
- * @param 	id 	ID of tile given by drawAt() function.
- * @param 	dx	Delta horizontal (change in position.)
- * @param 	dy	Delta vertical (change in position.)
+ * @param 	{int}	id 	ID of tile given by drawAt() function.
+ * @param 	{int}	dx	Delta horizontal (change in position.)
+ * @param 	{int}	dy	Delta vertical (change in position.)
  */
 Renderer.prototype.shiftTile = function(id, dx, dy) {
 	this.viewport.children[id].setAttribute(
@@ -218,14 +268,14 @@ Renderer.prototype.shiftTile = function(id, dx, dy) {
  * "Draw" a tile on screen. Note: Image must already be present as an img tag in
  * the #tiles div in index.html
  *
- * @param 	imageName 	ID name of image.
- * @param 	whereX 		Horizontal position to draw.
- * @param 	whereY 		Vertical position to draw.
- * @returns 	id of tile. Used in moveTile for faster performance.
+ * @param 	{int}	imageName 	ID name of image.
+ * @param 	{int}	whereX 		Horizontal position to draw.
+ * @param 	{int}	whereY 		Vertical position to draw.
+ * @returns {int}	id of tile. Used in moveTile for faster performance.
  */
 Renderer.prototype.draw = function(imageName, whereX, whereY) {
 	var newImage = document.createElement('img');
-	var newID = this.tiles.length + 1
+	var newID = this.tiles.length + 1;
 	newImage.id = newID;
 	newImage.src = this.tileSource.children[imageName].src;
 	newImage.width = this.tileSource.children[imageName].width;
@@ -237,7 +287,7 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
 		'px; left: ' + whereX + 'px;'
 	);
 	this.viewport.appendChild(newImage);
-	this.tiles[this.tiles.length + 1] = {
+	this.tiles[newID] = {
 		image: imageName,
 		x: whereX,
 		y: whereY
@@ -259,7 +309,7 @@ Renderer.prototype.resizeViewport = function() {
 /**
  * Checks to see if the requested tile at all visible in the current viewport.
  * Is used for hiding tiles that are no longer visible.
- * @returns 	True if visible, false if not.
+ * @returns 	{bool}	True if visible, false if not.
  */
 Renderer.prototype.isTileInViewport = function(tile) {
 	// ...
@@ -269,19 +319,19 @@ Renderer.prototype.isTileInViewport = function(tile) {
 
 /**
  * Getter.
- * @returns 	Horizontal position of viewport, center of screen.
+ * @returns 	{int}	Horizontal position of viewport, center of screen.
  */
 Renderer.prototype.getX = function() { return this.settings.x; }
 
 /**
  * Getter.
- * @returns 	Vertical position of viewport, center of screen.
+ * @returns 	{int}	Vertical position of viewport, center of screen.
  */
 Renderer.prototype.getY = function() { return this.settings.y; }
 
 /**
  * Getter.
- * @returns 	Zoom of viewport, center of screen.
+ * @returns 	{int}	Zoom of viewport, center of screen.
  */
 Renderer.prototype.getZoom = function() {
 	return this.settings.zoom;
@@ -289,7 +339,7 @@ Renderer.prototype.getZoom = function() {
 
 /**
  * Getter.
- * @returns 	All the tiles currently "rendered" in the viewport.
+ * @returns 	{array}	All the tiles currently "rendered" in the viewport.
  */
 Renderer.prototype.getTiles = function() {
 	return this.tiles;
