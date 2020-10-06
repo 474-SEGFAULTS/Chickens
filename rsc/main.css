@@ -80,6 +80,62 @@ body{
     background-position: center 0;
 }
 
+
+body {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .garlic {
+    width: 50px;
+    height: 50px;
+    background: url('/rsc/img/dynamic/weapons/garlic_bomb/garlic.png') center;
+  
+    animation: move_weapon 2s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes move_weapon {
+    0% { transform: translateX(0); opacity: 1;}
+    90% {
+        width: 35px;
+        height: 35px;
+        background: url('/rsc/img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
+        opacity: 1; 
+    }
+    100% {
+        transform: translateX(400px); 
+        opacity: 0;
+    }
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  .enemy_weapon {
+    width: 100px;
+    height: 100px;
+    background: url('/rsc/img/dynamic/weapons/blood_bottle.png'); /*incorrect needs to be enemy weapon*/
+  
+    animation: red-attack 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes red-attack {
+    0% { transform: translateX(0); opacity: 1;}
+    100% {
+        transform: translateX(400px); 
+        opacity: 1;
+    }
+  }
+
+
 #singlePlayer, #instructions { 
     /* selector, selector means the style applies to both selectors */
     display: none;
