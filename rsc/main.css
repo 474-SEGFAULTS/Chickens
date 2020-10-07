@@ -78,6 +78,34 @@ body{
     width: 100vw;
     height: 100vh;
     background-position: center 0;
+    display: flex;
+    justify-items: center;
+}
+
+.bubbleWand{
+    width: 100px;
+    height: 100px;
+    background: url('img/dynamic/weapons/bubble_wand/bubbles.png'),
+                url('img/dynamic/weapons/bubble_wand/wand.png');
+    animation: move_weapon 2s;
+    animation-direction: normal;
+    animation-iteration-count: 1, 2;
+    animation-fill-mode: forwards, none;
+}
+
+.thaiPepper{
+    width: 100px;
+    height: 100px;
+    background: url('img/dynamic/weapons/thai_pepper.png');
+    animation: move_weapon 2s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move_weapon{
+    from {transform: translateX(0)}
+    to {transform: translateX(200px)} 
 }
 
 #singlePlayer, #instructions { 
