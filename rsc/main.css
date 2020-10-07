@@ -100,8 +100,8 @@ body{
 }
 
 @keyframes move_weapon{
-    from {transform: translateX(0)}
-    to {transform: translateX(200px)}   
+    0% {transform: translateX(0)}
+    100% {transform: translateX(200px)}
 }
 
 #singlePlayer, #instructions { 
