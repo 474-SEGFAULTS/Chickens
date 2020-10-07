@@ -15,6 +15,10 @@
  * whereX and whereY are used instead of just x and y when there's already an x
  * and y within scope.
  *
+ * Any function relating to "chunks" was hoping to draw each individual chunk to
+ * the screen in order to get destruction physics, but it's not acheivable in
+ * the remaining.
+ *
  * @author jvillemare
  * @date 2019-10-06
  */
@@ -48,6 +52,8 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 	this.tiles = []; // where tiles are virtually tracked
 	this.chunks = []; // id of chunks created
 	this.chunksNodes = []; // nodes of chunk to quickly add
+	this.chunksUsed = false; // indicate if chunks are being used
+	this.mapDimensions = {}; // map dimensions for calculating positions
 
 	window.onresize = function() {
 		renderer.viewport.setAttribute('style', 'width: ' + window.innerWidth + 'px; height: ' + window.innerHeight + 'px;');
@@ -257,10 +263,13 @@ Renderer.prototype.twoDimensionalDistance = function(x1, y1, x2, y2) {
  * @param 	{int}	spriteID	ID of sprite in tilesheet.
  * @return	{int} 	ID of drawn sprite in renderer. Is used when moving drawn
  *					sprites with Renderer.moveTile
+ * @see Renderer.drawMap(...)
  * @author jvillemare
  */
 Renderer.prototype.deleteChunkTilesInRadius = function(whereX, whereY, radius) {
-
+	if(this.chunksUsed == false)
+		throw 'Chunks are not being used, and tiles within them cannot be deleted. Must call drawMap() before this.';
+	// ...
 }
 
 /**
@@ -300,6 +309,67 @@ Renderer.prototype.chunkDoesExist = function(id) {
 }
 
 /**
+ * Internal helper function.
+ * Convert a one dimensional coordinate to two dimension based on the width and
+ * height specified by the level JSON loaded by drawMap().
+ *
+ * @param 	{int} 	x 	Horizontal in one dimensions.
+ * @return  {array} [x, y]
+ * @see Renderer.drawMap(...)
+ * @author jvillemare
+ */
+Renderer.prototype.convert1Dto2D = function(x) {
+	if(this.chunksUsed == false)
+		throw 'Width and height not know because no map JSON was loaded with drawMap()';
+	return [
+		(x % this.mapDimensions.width) * 8, // x
+		Math.floor(x / this.mapDimensions.width) * 8 // y
+	];
+}
+
+/**
+ * Internal helper function.
+ * Convert a two dimensional coordinate to one dimension based on the width and
+ * height specified by the level JSON loaded by drawMap().
+ *
+ * @param 	{int} 	x 	Horizontal in two dimensions.
+ * @param 	{int} 	y	Vertical in two dimensions.
+ * @return	{int} Horziontal in one dimension.
+ * @author jvillemare
+ * @see Renderer.drawMap(...)
+ */
+Renderer.prototype.convert2Dto1D = function(x, y) {
+	if(this.chunksUsed == false)
+		throw 'Width and height not know because no map JSON was loaded with drawMap()';
+	return
+}
+
+/**
+ * Internal helper function.
+ * Basically determines if two arrays of primitive are equivalent.
+ *
+ * @param 	{array} 	a1 		Some arbitrary array of primitives (int, etc).
+ * @param 	{array} 	a2 		Some arbitrary array of primitives (int, etc).
+ * @return True if they equal, false if not.
+ * @author jvillemare
+ * @see Renderer.drawMap(...)
+ */
+Renderer.prototype.basicArrayEquals = function(a1, a2) {
+	return JSON.stringify(a1) == JSON.stringify(a2);
+}
+
+/**
+ * Draw a static map to the viewport at the top, left-most position.
+ *
+ * @param 	{int} 	mapID 	ID of map in the tile source.
+ * @return {int} of tile ID of map.
+ * @author jvillemare
+ */
+Renderer.prototype.drawStaticMap = function(mapID) {
+	return this.draw(mapID, 0, 0);
+}
+
+/**
  * Draw map to viewport from map data.
  * @param	{url} 	mapSource 	JSON containing map data.
  * @return nothing.
@@ -309,6 +379,8 @@ Renderer.prototype.drawMap = function(mapSource) {
 	var map = fetch(mapSource).then(response => response.json());
 	var width = map.layers[0].width, height = map.layers[0].height;
 	map = map.layers[0].data; // extract just map data
+	this.mapDimensions.width = width;
+	this.mapDimensions.height = height;
 
 	map.forEach(function(element, index) {
 		if(element != 0) { // 0 means blank tile in map data.
@@ -327,6 +399,17 @@ Renderer.prototype.drawMap = function(mapSource) {
 			this.chunksNodes[chunkToAddTo].appendChild(newImage);
 		}
 	});
+	this.chunksUsed = true;
+	// test dimensions
+	if(
+		this.basicArrayEquals(
+			convert1Dto2D(
+				convert2Dto1D(2, 3)
+			),
+			[2, 3]
+		) ) {
+		throw 'convert1Dto2D of convert2Dto1D using x=2 and y=3 does return an array containing [2, 3]. The math is off in one or both of those functions.';
+	}
 }
 
 /**
@@ -374,6 +457,8 @@ Renderer.prototype.shiftTile = function(id, dx, dy) {
  * @author jvillemare
  */
 Renderer.prototype.draw = function(imageName, whereX, whereY) {
+	if(this.tileSource.children[imageName] == undefined)
+		throw 'Specified tile imageName="' + imageName + '" does not exist in the tile source of ' + this.tileSource.id;
 	var newImage = document.createElement('img');
 	var newID = this.tiles.length + 1;
 	newImage.id = newID;
@@ -418,6 +503,20 @@ Renderer.prototype.isTileInViewport = function(tile) {
 }
 
 // ================================== GETTERS ==================================
+
+/**
+ * Getter.
+ * @returns 	{dict}	All chunk organization info, organized in a dictionary.
+ * @author jvillemare
+ */
+Renderer.prototype.getChunkInfo = function() {
+	return {
+		chunks: this.chunks,
+		chunksNodes: this.chunksNodes,
+		chunksUsed: this.chunksUsed,
+		mapDimensions: this.mapDimensions
+	}
+}
 
 /**
  * Getter.

@@ -57,7 +57,7 @@ $(document).ready(function () {
 	renderer = new Renderer('background-layer', 'tiles');
 	// menu buttons
 	$("#single-player-btn").click(function () {
-		renderer.drawMap('rsc/data/map/level0.json');
+		renderer.drawStaticMap('rsc/data/map/map-design.bmp');
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});
