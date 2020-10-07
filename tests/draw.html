@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Renderer Test</title>
+		<link rel="stylesheet" href="../rsc/main.css">
+		<link rel="stylesheet" href="rsc/draw.css">
+	</head>
+	<body>
+		<div id="tiles">
+			<!-- Put all map, player images that will be "drawn" on the screen
+				here as img tags.
+			-->
+			<img id="A" src="rsc/A.png" width="128px" height="128px">
+			<img id="B" src="rsc/B.png" width="128px" height="128px">
+			<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
+		</div>
+		<div id="game">
+			<div id="background-layer"></div>
+			<div id="foreground-layer"></div>
+		</div>
+		<div class="control-buttons">
+			<button type="button" class="cb" id="reset">Reset Viewport</button>
+			<button type="button" class="cb" id="zoomin">Zoom in</button>
+			<button type="button" class="cb" id="zoomout">Zoom out</button>
+			<button type="button" class="cb" id="moveup">Move viewport up</button>
+			<button type="button" class="cb" id="moveright">Move viewport right</button>
+			<button type="button" class="cb" id="movedown">Move viewport down</button>
+			<button type="button" class="cb" id="moveleft">Move viewport left</button>
+		</div>
+		<script src="../rsc/renderer.js"></script>
+		<script src="rsc/draw_test.js"></script>
+	</body>
+</html>

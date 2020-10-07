@@ -23,7 +23,8 @@
  * @date 2019-10-06
  */
 
-// structure of the renderer influenced by https://stackoverflow.com/a/2206630/13158722
+// structure of the renderer influenced by
+// https://stackoverflow.com/a/2206630/13158722
 
 var defaultViewportState = {
 	x: 0, // horizontal position of viewport
@@ -32,7 +33,7 @@ var defaultViewportState = {
 	maxZoom: 10, // max zoom level
 	minZoom: 0, // min zoom level
 	chunkSize: 10, // 10 x 10
-}
+};
 
 /**
  * Constructor. By default, pass the ID of the viewport.
@@ -58,7 +59,7 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 	window.onresize = function() {
 		renderer.viewport.setAttribute('style', 'width: ' + window.innerWidth + 'px; height: ' + window.innerHeight + 'px;');
 	};
-}
+};
 
 // ============================= VIEWPORT / CAMERA =============================
 
@@ -75,7 +76,7 @@ Renderer.prototype.checkZoom = function(zoom) {
 		throw 'Specified zoom level is beyond max/mins.';
 	if(this.settings.maxZoom < this.settings.minZoom)
 		throw 'Renderer settings maxZoom is less than minZoom';
-}
+};
 
 /**
  * Change the camera's zoom level.
@@ -88,7 +89,7 @@ Renderer.prototype.setZoom = function(zoom) {
 	this.checkZoom(zoom);
 	this.settings.zoom = zoom;
 	this.updateViewport();
-}
+};
 
 /**
  * Helper function. Updates the viewport CSS to the new state.
@@ -102,7 +103,7 @@ Renderer.prototype.updateViewport = function() {
 		this.generateZoomCSS(this.settings.zoom) + ' ' +
 		this.generateTranslateCSS(this.settings.x, this.settings.y) + ';'
 	);
-}
+};
 
 /**
  * Generate the necessary CSS scale function.
@@ -124,7 +125,7 @@ Renderer.prototype.generateZoomCSS = function(zoom) {
 		) + ')';
 	}
 	return zoomCSS;
-}
+};
 
 /**
  * Generate the necessary CSS translate function to move the viewport.
@@ -138,7 +139,7 @@ Renderer.prototype.generateTranslateCSS = function(whereX, whereY) {
 	// -1 to invert the positions since translate is normally opposite what we
 	// want to translate to.
 	return 'translate(' + (-1 * whereX) + 'px, ' + (-1 * whereY) + 'px)';
-}
+};
 
 /**
  * Zoom and move viewport to a position and magnification.
@@ -155,7 +156,7 @@ Renderer.prototype.moveViewport = function(x, y, zoom) {
 	this.settings.y = y;
 	this.settings.zoom = zoom;
 	this.updateViewport();
-}
+};
 
 /**
  * Zoom and move viewport to a new position.
@@ -170,7 +171,7 @@ Renderer.prototype.moveViewport = function(x, y) {
 	this.settings.x = x;
 	this.settings.y = y;
 	this.updateViewport();
-}
+};
 
 /**
  * Shift the current viewport position by a translational amount.
@@ -185,7 +186,7 @@ Renderer.prototype.shiftViewport = function(dx, dy) {
 	this.settings.x += dx;
 	this.settings.y += dy;
 	this.updateViewport();
-}
+};
 
 /**
  * Zoom out to the maximum distance.
@@ -195,7 +196,7 @@ Renderer.prototype.shiftViewport = function(dx, dy) {
 Renderer.prototype.zoomOutMax = function() {
 	this.setZoom(this.settings.minZoom);
 	this.settings.zoom = this.settings.maxZoom;
-}
+};
 
 // ================================== DRAWING ==================================
 
@@ -207,7 +208,7 @@ Renderer.prototype.zoomOutMax = function() {
 Renderer.prototype.clear = function() {
 	this.viewport.innerHTML = '';
 	this.tiles = [];
-}
+};
 
 /**
  * Draw a "sprite" (sub-image) from a tileset at an x and y.
@@ -238,6 +239,7 @@ Renderer.prototype.drawFromTileset = function(tileID, spriteID, whereX, whereY) 
 		y: whereY
 	};
 	return newID;
+};
 
 /**
  * Calculate the distance between two points in 2D space.
@@ -253,7 +255,7 @@ Renderer.prototype.twoDimensionalDistance = function(x1, y1, x2, y2) {
 	var a = x1 - x2;
 	var b = y1 - y2;
 	var c = Math.sqrt(a*a + b*b);
-}
+};
 
 /**
  * Delete tiles that are in chunks with a radius of an x and y.
@@ -270,7 +272,7 @@ Renderer.prototype.deleteChunkTilesInRadius = function(whereX, whereY, radius) {
 	if(this.chunksUsed == false)
 		throw 'Chunks are not being used, and tiles within them cannot be deleted. Must call drawMap() before this.';
 	// ...
-}
+};
 
 /**
  * Determine what chunk a map tile belongs to given it's ID.
@@ -286,7 +288,7 @@ Renderer.prototype.deleteChunkTilesInRadius = function(whereX, whereY, radius) {
 Renderer.prototype.getChunkID = function(id, width, chunkSize) {
 	var x = (num % 41) * 8, y = Math.floor(num / 41) * 8;
 	// ...
-}
+};
 
 /**
  * Checks if a chunk exists in the viewport. If it does not, this function
@@ -306,7 +308,7 @@ Renderer.prototype.chunkDoesExist = function(id) {
 		return false;
 	}
 	return true;
-}
+};
 
 /**
  * Internal helper function.
@@ -325,7 +327,7 @@ Renderer.prototype.convert1Dto2D = function(x) {
 		(x % this.mapDimensions.width) * 8, // x
 		Math.floor(x / this.mapDimensions.width) * 8 // y
 	];
-}
+};
 
 /**
  * Internal helper function.
@@ -342,7 +344,7 @@ Renderer.prototype.convert2Dto1D = function(x, y) {
 	if(this.chunksUsed == false)
 		throw 'Width and height not know because no map JSON was loaded with drawMap()';
 	return
-}
+};
 
 /**
  * Internal helper function.
@@ -356,7 +358,7 @@ Renderer.prototype.convert2Dto1D = function(x, y) {
  */
 Renderer.prototype.basicArrayEquals = function(a1, a2) {
 	return JSON.stringify(a1) == JSON.stringify(a2);
-}
+};
 
 /**
  * Draw a static map to the viewport at the top, left-most position.
@@ -367,7 +369,7 @@ Renderer.prototype.basicArrayEquals = function(a1, a2) {
  */
 Renderer.prototype.drawStaticMap = function(mapID) {
 	return this.draw(mapID, 0, 0);
-}
+};
 
 /**
  * Draw map to viewport from map data.
@@ -376,7 +378,8 @@ Renderer.prototype.drawStaticMap = function(mapID) {
  * @author jvillemare
  */
 Renderer.prototype.drawMap = function(mapSource) {
-	var map = fetch(mapSource).then(response => response.json());
+	var map;
+	fetch(mapSource).then(response => response.json()).then(data => map = data);
 	var width = map.layers[0].width, height = map.layers[0].height;
 	map = map.layers[0].data; // extract just map data
 	this.mapDimensions.width = width;
@@ -410,7 +413,7 @@ Renderer.prototype.drawMap = function(mapSource) {
 		) ) {
 		throw 'convert1Dto2D of convert2Dto1D using x=2 and y=3 does return an array containing [2, 3]. The math is off in one or both of those functions.';
 	}
-}
+};
 
 /**
  * Move an existing tile from its current position by a specified amount.
@@ -427,7 +430,7 @@ Renderer.prototype.moveTile = function(id, x, y) {
 		'top: ' + (this.tiles[id].y = y) + // update virtual positions and DOM
 		'px; left: ' + (this.tiles[id].x = x) + 'px;'
 	);
-}
+};
 
 /**
  * Shift an existing tile from its current position by a specified amount.
@@ -444,7 +447,7 @@ Renderer.prototype.shiftTile = function(id, dx, dy) {
 		'top: ' + (this.tiles[id].y += dy) + // update virtual positions and DOM
 		'px; left: ' + (this.tiles[id].x += dx) + 'px;'
 	);
-}
+};
 
 /**
  * "Draw" a tile on screen. Note: Image must already be present as an img tag in
@@ -478,7 +481,7 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
 		y: whereY
 	};
 	return newID;
-}
+};
 
 // ================================== HELPERS ==================================
 
@@ -490,7 +493,7 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
  */
 Renderer.prototype.resizeViewport = function() {
 	renderer.viewport.setAttribute('style', 'width: ' + document.width + 'px; height: ' + document.height + 'px;');
-}
+};
 
 /**
  * Checks to see if the requested tile at all visible in the current viewport.
@@ -500,7 +503,7 @@ Renderer.prototype.resizeViewport = function() {
  */
 Renderer.prototype.isTileInViewport = function(tile) {
 	// ...
-}
+};
 
 // ================================== GETTERS ==================================
 
@@ -515,22 +518,22 @@ Renderer.prototype.getChunkInfo = function() {
 		chunksNodes: this.chunksNodes,
 		chunksUsed: this.chunksUsed,
 		mapDimensions: this.mapDimensions
-	}
-}
+	};
+};
 
 /**
  * Getter.
  * @returns 	{int}	Horizontal position of viewport, center of screen.
  * @author jvillemare
  */
-Renderer.prototype.getX = function() { return this.settings.x; }
+Renderer.prototype.getX = function() { return this.settings.x; };
 
 /**
  * Getter.
  * @returns 	{int}	Vertical position of viewport, center of screen.
  * @author jvillemare
  */
-Renderer.prototype.getY = function() { return this.settings.y; }
+Renderer.prototype.getY = function() { return this.settings.y; };
 
 /**
  * Getter.
@@ -539,7 +542,7 @@ Renderer.prototype.getY = function() { return this.settings.y; }
  */
 Renderer.prototype.getZoom = function() {
 	return this.settings.zoom;
-}
+};
 
 /**
  * Getter.
@@ -548,4 +551,4 @@ Renderer.prototype.getZoom = function() {
  */
 Renderer.prototype.getTiles = function() {
 	return this.tiles;
-}
+};
