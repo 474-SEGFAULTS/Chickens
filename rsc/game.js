@@ -3,11 +3,10 @@
  * Holds game state and game logic.
  */
 
-// ..
+var renderer = null;
 
 // Author: Jiamian
 // handle all the key press
-
 document.addEventListener('keydown', function (event) {
     if (event.key.toLowerCase() == 'w' | event.key == 'ArrowUp') {
         alert('up');
@@ -34,6 +33,7 @@ document.addEventListener('keydown', function (event) {
         document.getElementById("myForm").style.display = "block";
     }
 });
+
 document.addEventListener('keyup', function (event) {
     if (event.key.toLowerCase() == 'a' | event.key == 'ArrowUp') {
         stopSound('WalkExpand');
@@ -42,6 +42,7 @@ document.addEventListener('keyup', function (event) {
         stopSound('WalkExpand');
     }
 });
+
 // Author: Jiamian
 // move the Chickens
 function move(direction) {
@@ -55,22 +56,6 @@ function closePop(){
 // Author: Happy
 // jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
-    addSounds();
-    $("#singlePlayerbtn").click(function () {
-        $('#menuScreen').fadeOut('fast', function () {
-            $('#singlePlayer').fadeIn('fast');
-        });
-    });
-    $("#instructionsbtn").click(function () {
-        $('#menuScreen').fadeOut('fast', function () {
-            $('#instructions').fadeIn('fast');
-        });
-    });
-    $("#mainMenubtn").click(function () {
-        $('#instructions').fadeOut('fast', function () {
-            $('#menuScreen').fadeIn('fast');
-        });
-    });
     //please remove the HEbtn and BEbtn when game is done
     $("#HEbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
@@ -93,7 +78,26 @@ $(document).ready(function () {
         });
     });
 
-
+	addSounds();
+	// render
+	renderer = new Renderer('background-layer', 'tiles');
+	// menu buttons
+	$("#single-player-btn").click(function () {
+		renderer.drawMap(level1);
+		$('#menu-screen').fadeOut('fast', function () {
+			$('#singlePlayer').fadeIn('fast');
+		});
+	});
+	$("#instructions-btn").click(function () {
+		$('#menu-screen').fadeOut('fast', function () {
+			$('#instructions').fadeIn('fast');
+		});
+	});
+	$("#main-menu-btn").click(function(){
+		$('#instructions').fadeOut('fast', function () {
+			$('#menu-screen').fadeIn('fast');
+		});
+	});
 });
 
 // used to track how many enemy defeated
@@ -103,7 +107,8 @@ function setScore(count) {
 }
 
 /**
- * 
+ * Determines if two circles intersect.
+ *
  * @param {*} x1 coordinate x of first circle
  * @param {*} y1 coordinate y of first circle
  * @param {*} radius1 radius of first circle
@@ -121,7 +126,8 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2) {
 };
 
 /**
- * 
+ * Detrmines if a line intersects a circle.
+ *
  * @param {*} x1 line point x
  * @param {*} y1 line point y
  * @param {*} angle1 angle of line
@@ -129,10 +135,9 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2) {
  * @param {*} x2 x coordinate of circle
  * @param {*} y2 y coordinate of circle
  * @param {*} radius2 radius of circle (to be given as a double)
- * 
- * @return returns true if line intersects and false if it does not
- * 
- * Using a vector and inspired by https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+ * @return returns true if line intersects, and false if it does not
+ *
+ * Using a vector and inspired by https://stackoverflow.com/q/1073336/13158722
  */
 function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2) {
     // find the end point of the line
