@@ -57,7 +57,7 @@ $(document).ready(function () {
 	renderer = new Renderer('background-layer', 'tiles');
 	// menu buttons
 	$("#single-player-btn").click(function () {
-		renderer.drawStaticMap('bmp-map');
+		renderer.drawMap(level0);
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});

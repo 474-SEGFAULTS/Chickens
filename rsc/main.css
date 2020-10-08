@@ -133,7 +133,7 @@ body {
 .t878, .t880, .t881, .t882, .t883, .t884, .t885, .t886, .t887, .t888, .t889,
 .t894, .t895, .t896, .t897, .t898, .t2147483858, .t2684354611, .t2684354612,
 .t2684354652, .t2684354653 {
-	background-image: url('rsc/data/map/terrain.png');
+	background-image: url('data/map/terrain.png');
 	background-repeat: no-repeat; /* get only a part of it */
 	height: 8px; /* all tiles are 8x8 pixels */
 	width: 8px;

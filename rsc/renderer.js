@@ -294,7 +294,7 @@ Renderer.prototype.getChunkID = function(positions, width, chunkSize) {
 		throw 'convert1Dto2D failed to return an array of two elements, instead got the above output.';
 	}
 	return (Math.floor(positions[0] / chunkSize)) +
-		(Math.floor(positions[1] / chunkSize));
+		(Math.floor(positions[1] / chunkSize) * Math.floor(width / chunkSize));
 		// figure out horizontal, then
 		// vertical needs to figure offset, and then how many chunks skipped
 };
