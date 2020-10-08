@@ -138,7 +138,7 @@ body {
     height: 100px;
     background: url('img/dynamic/weapons/bubble_wand/bubbles.png');
     animation: move_weapon 2s;
-
+}
 #menuScreen {
 	background-image: url('img/main_menu_background.jpg');
 	background-size: 100% 100%;
@@ -305,10 +305,11 @@ a:hover {
 }
 
 .y-flappingLeft, .y-walkingLeft, .y-idleLeft, .y-flappingRight, .y-walkingRight, .y-idleRight {
-	background-image: url('img/dynamic/characters/youdee_spritesheet.png');
+	background-image: url('img/dynamic/characters/yoUDee-spritesheet.png');
 	background-repeat: no-repeat;
-	height: 50px;
-	width: 30px;
+	height: 30px;
+  width: 30px;
+  background-position-x: -120px;
 }
 
 .y-walkingLeft {

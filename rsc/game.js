@@ -3,28 +3,26 @@
  * Holds game state and game logic.
  */
 
-var renderer = null;
+
+var renderer = null,player = null;
+var control={"w":false,"a":false,"s":false,"d":false};
+
 
 // Author: Jiamian
 // handle all the key press
-document.addEventListener('keydown', function (event) {
-    if (event.key.toLowerCase() == 'w' | event.key == 'ArrowUp') {
-        alert('up');
-        move('up');
+document.addEventListener('keydown', function(event){
+    control[event.key.toLowerCase()]=true;
+    if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
+        player.setJump(player.getActive(),true);
     }
-    else if (event.key.toLowerCase() == 's' | event.key == 'ArrowDown') {
-        alert('down');
-        move('down');
+    else if(event.key.toLowerCase()=='s' | event.key=='ArrowDown'){
+        console.log('down');
     }
-    else if (event.key.toLowerCase() == 'a' | event.key == 'ArrowLeft') {
-        move('left');
-        //alert('left');
-        playSound('WalkExpand', true);
+    else if(event.key.toLowerCase()=='a' | event.key=='ArrowLeft'){
+        playSound('WalkExpand',true);
     }
-    else if (event.key.toLowerCase() == 'd' | event.key == 'ArrowRight') {
-        //alert('right');
-        move('right');
-        playSound('WalkExpand', true);
+    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+        playSound('WalkExpand',true);
     }
     else if (event.key.toLowerCase() == 'e') {
         alert('open inventory');
@@ -32,22 +30,19 @@ document.addEventListener('keydown', function (event) {
     else if(event.key=="Escape"){
         document.getElementById("myForm").style.display = "block";
     }
-});
-
-document.addEventListener('keyup', function (event) {
-    if (event.key.toLowerCase() == 'a' | event.key == 'ArrowUp') {
-        stopSound('WalkExpand');
-    }
-    else if (event.key.toLowerCase() == 'd' | event.key == 'ArrowRight') {
-        stopSound('WalkExpand');
+    else if(event.key==" "){
+        alert('space');
     }
 });
 
-// Author: Jiamian
-// move the Chickens
-function move(direction) {
-    //TODO
-}
+document.addEventListener('keyup', function(event){
+    control[event.key.toLowerCase()]=false;
+    if(event.key.toLowerCase()=='a' | event.key=='ArrowUp'|
+    event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+        stopSound('WalkExpand');
+    }
+});
+
 
 function closePop(){
     document.getElementById("myForm").style.display = "none";
@@ -84,6 +79,9 @@ $(document).ready(function () {
 	// menu buttons
 	$("#single-player-btn").click(function () {
 		renderer.drawMap(level1);
+        player=new Player();
+        player.init('player',true,"test",50,50,100,1,"right");
+        window.requestAnimationFrame(update);
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});

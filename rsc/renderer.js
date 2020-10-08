@@ -486,7 +486,7 @@ Renderer.prototype.drawMap = function(mapSource) {
  * @author jvillemare.
  */
 Renderer.prototype.moveTile = function(id, x, y) {
-	this.viewport.children[id].setAttribute(
+	this.tiles[id].ref.setAttribute(
 		'style',
 		'top: ' + (this.tiles[id].y = y) + // update virtual positions and DOM
 		'px; left: ' + (this.tiles[id].x = x) + 'px;'
@@ -523,13 +523,13 @@ Renderer.prototype.shiftTile = function(id, dx, dy) {
 Renderer.prototype.draw = function(imageName, whereX, whereY) {
 	if(this.tileSource.children[imageName] == undefined)
 		throw 'Specified tile imageName="' + imageName + '" does not exist in the tile source of ' + this.tileSource.id;
-	var newImage = document.createElement('img');
+	var newImage = document.createElement(this.tileSource.children[imageName].nodeName.toLowerCase());
 	var newID = this.tiles.length + 1;
 	newImage.id = newID;
 	newImage.src = this.tileSource.children[imageName].src;
 	newImage.width = this.tileSource.children[imageName].width;
 	newImage.height = this.tileSource.children[imageName].height;
-	newImage.classList = 'go'; // game object class, see main.css
+	newImage.classList = 'go ' + this.tileSource.children[imageName].classList; // game object class, see main.css
 	newImage.setAttribute(
 		'style',
 		'top: ' + whereY + // update virtual positions and DOM
@@ -537,6 +537,7 @@ Renderer.prototype.draw = function(imageName, whereX, whereY) {
 	);
 	this.viewport.appendChild(newImage);
 	this.tiles[newID] = {
+		ref: newImage,
 		image: imageName,
 		x: whereX,
 		y: whereY
