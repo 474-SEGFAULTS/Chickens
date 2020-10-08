@@ -129,3 +129,5 @@ function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2)
     return (LEC < radius2);
 
 };
+
+var enemy_spawn = [[11,9], [44,6], [10,22], [33,16], [63, 23], [47,29], [4, 42], [74,42]];
