@@ -58,6 +58,9 @@ Player.prototype.setX=function(id,x){
 }
 Player.prototype.shiftX=function(id,x){
   this.players[id].x+=x;
+  if(this.players[id].x<0){
+    this.players[id].x=0;
+  }
 }
 Player.prototype.getY=function(id){
   return this.players[id].y;
@@ -67,6 +70,9 @@ Player.prototype.setY=function(id,y){
 }
 Player.prototype.shiftY=function(id,y){
   this.players[id].y+=y;
+  if(this.players[id].y<0){
+    this.players[id].y=0;
+  }
 }
 Player.prototype.move=function(id){
   renderer.moveTile(this.getRenderID(id),this.getX(id),this.getY(id));
@@ -94,7 +100,6 @@ function update(){
   var move=["y-flappingLeft", "y-walkingLeft", "y-idleLeft","y-flappingRight", "y-walkingRight", "y-idleRight"];
   var renderid=player.getRenderID(active);
   $("#" + renderid + ".player").removeClass(move);
-  console.log(x);
   if (x > 0) {
     //$("#" + renderid + ".player").removeClass(left);
     player.setFacing(active, "right");
@@ -126,18 +131,24 @@ function update(){
     
   }
 
-  if (control.w && !player.getJump(active)) {
+  
+  if(!renderer.isGroundBeneath(Math.floor((player.getX(0)+15)/8),Math.floor((player.getY(0)+30)/8),1)){
     player.setJump(active,true);
-    y -= 40;
-  }
-  if (player.getJump(active)) {
+    player.setY(active,player.getY(0));
     y += 2;
   }
-  if (player.getY(active) > 60) {
+  else{
+    player.setJump(active,false);
+  }
+  if (control.w && !player.getJump(active)) {
+    player.setJump(active,true);
+    y -= 60;
+  }
+  /*if (player.getY(active) > 60) {
     player.setJump(active,false);
     player.setY(active,60);
     y = 0;
-  }
+  }*/
   player.shiftX(active, x);
   player.shiftY(active, y);
   player.move(active);
