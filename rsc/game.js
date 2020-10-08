@@ -71,6 +71,9 @@ $(document).ready(function () {
     $("#backbtn").click(function(){
         document.getElementById("myForm").display = "none";
     });
+    $('#cancelbtn').click(function(){
+        //Happy's end screen appear
+    });
 });
 
 /**
