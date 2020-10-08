@@ -197,8 +197,8 @@ a:hover {
   height: 30px;
   width: 30px;
   background-position-x: -19px;
-  background-position-y: 182 px;
-  animation: smoke_show 1s steps() infinite;
+  background-position-y: 182px;
+  animation: smoke_show 1s steps(2) infinite;
 }
 
 @keyframes smoke_show{
