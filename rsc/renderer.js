@@ -51,6 +51,7 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 	this.tileSource = document.getElementById(tileSource);
 	this.settings = settings; // settings is more like the state of the viewport
 	this.tiles = []; // where tiles are virtually tracked
+	this.mapTiles = 0; // if drawing by map, use this for unique DOM ids
 	this.chunks = []; // id of chunks created
 	this.chunksNodes = []; // nodes of chunk to quickly add
 	this.chunksUsed = false; // indicate if chunks are being used
@@ -285,13 +286,16 @@ Renderer.prototype.deleteChunkTilesInRadius = function(whereX, whereY, radius) {
  *				 tile belongs.
  * @author jvillemare
  */
-Renderer.prototype.getChunkID = function(id, width, chunkSize) {
+Renderer.prototype.getChunkID = function(positions, width, chunkSize) {
 	if(chunkSize < 0)
 		throw 'Chunk size cannot be less than 0';
-	var positions = Renderer.prototype.convert1Dto2D(id, width);
-	return
-		Math.floor(positions[0] / chunkSize) + // figure out horizontal
-		(Math.floor(positions[1] / chunkSize) * Math.floor(width / chunkSize));
+	if(positions.length != 2) {
+		console.log(positions);
+		throw 'convert1Dto2D failed to return an array of two elements, instead got the above output.';
+	}
+	return (Math.floor(positions[0] / chunkSize)) +
+		(Math.floor(positions[1] / chunkSize));
+		// figure out horizontal, then
 		// vertical needs to figure offset, and then how many chunks skipped
 };
 
@@ -329,9 +333,13 @@ Renderer.prototype.chunkDoesExist = function(id) {
 Renderer.prototype.convert1Dto2D = function(x, mapWidth) {
 	if(this.chunksUsed == false)
 		throw 'Width and height not know because no map JSON was loaded with drawMap()';
+	if(x == null)
+		throw 'Given a null x. It should not be null';
+	if(x >= mapWidth * mapWidth)
+		throw 'x is greater than map dimensions';
 	return [
-		(x % mapWidth) * 8, // x
-		Math.floor(x / mapWidth) * 8 // y
+		(x % mapWidth), // x
+		Math.floor(x / mapWidth) // y
 	];
 };
 
@@ -340,16 +348,17 @@ Renderer.prototype.convert1Dto2D = function(x, mapWidth) {
  * Convert a two dimensional coordinate to one dimension based on the width and
  * height specified by the level JSON loaded by drawMap().
  *
- * @param 	{int} 	x 	Horizontal in two dimensions.
- * @param 	{int} 	y	Vertical in two dimensions.
+ * @param 	{int} 	x 			Horizontal in two dimensions.
+ * @param 	{int} 	y			Vertical in two dimensions.
+ * @param	{int}	mapWidth 	Width of map in pixels.
  * @return	{int} Horziontal in one dimension.
  * @author jvillemare
  * @see Renderer.drawMap(...)
  */
-Renderer.prototype.convert2Dto1D = function(x, y) {
+Renderer.prototype.convert2Dto1D = function(x, y, mapWidth) {
 	if(this.chunksUsed == false)
 		throw 'Width and height not know because no map JSON was loaded with drawMap()';
-	return null; // TODO: fix
+	return x + (y * mapWidth); // TODO: fix
 };
 
 /**
@@ -396,41 +405,45 @@ Renderer.prototype.drawMap = function(mapSource) {
 	if(map == undefined)
 		throw 'Failed to load mapSource of ' + mapSource + ' probably because it is a cross origin request.';
 	// load useful data
-	var width = map.layers[0].width, height = map.layers[0].height;
+	var mapWidth = map.layers[0].width, mapHeight = map.layers[0].height,
+	tileWidth = map.tilewidth, tileHeight = map.tileheight;
+	if(mapWidth < 0 || mapHeight < 0 || tileWidth < 0 || tileHeight < 0)
+		throw 'Map or tile width or height cannot be less than 0';
 	map = map.layers[0].data; // extract just map data
-	this.mapDimensions.width = width;
-	this.mapDimensions.height = height;
+	this.mapDimensions.width = mapWidth;
+	this.mapDimensions.height = mapHeight;
+	console.log('mapwidth is ' + mapWidth + ' and mapheight is ' + mapHeight);
 
 	// fill map
-	console.log('map length is ' + map.length);
+	this.chunksUsed = true;
 	for(var i = 0; i < map.length; i++) {
-		console.log('i is ' + i);
 		if(map[i] != 0) { // 0 means blank tile in map data.
 			var newSprite = document.createElement('div');
-			var newID = this.tiles.length + 1;
+			var newID = i;
+			this.mapTiles += 1;
 			var spriteID = 't' + map[i];
 			newSprite.id = newID;
 			newSprite.classList = spriteID; // game object class, see main.css
-			var positions = Renderer.prototype.convert1Dto2D(i, width);
+			var positions = this.convert1Dto2D(i, mapWidth);
 			newSprite.setAttribute(
 				'style',
-				'top: ' + positions[1] + // [1] is y, [0] is x
-				'px; left: ' + positions[0] + 'px;'
+				'top: ' + (positions[1] * tileWidth) + // [1] is y, [0] is x
+				'px; left: ' + (positions[0] * tileHeight) + 'px;'
 			);
-			var chunkToAddTo = this.getChunkID(map[i], width, 10);
+			var chunkToAddTo = this.getChunkID(positions, mapWidth, 10);
 			this.chunkDoesExist(chunkToAddTo);
 			this.chunksNodes[chunkToAddTo].appendChild(newSprite);
 		}
 	};
-	this.chunksUsed = true;
 	// test dimensions
 	if(
 		this.basicArrayEquals(
 			this.convert1Dto2D(
-				this.convert2Dto1D(2, 3)
+				this.convert2Dto1D(mapWidth - 1, mapWidth - 1, mapWidth),
+				mapWidth
 			),
-			[2, 3]
-		) ) {
+			[mapWidth - 1, mapWidth - 1]
+		) == false) {
 		throw 'convert1Dto2D of convert2Dto1D using x=2 and y=3 does NOT return an array containing [2, 3]. The math is off in one or both of those functions.';
 	}
 };
@@ -534,10 +547,11 @@ Renderer.prototype.isTileInViewport = function(tile) {
  */
 Renderer.prototype.getChunkInfo = function() {
 	return {
-		chunks: this.chunks,
-		chunksNodes: this.chunksNodes,
-		chunksUsed: this.chunksUsed,
-		mapDimensions: this.mapDimensions
+		chunks: this.chunks, // IDs of chunks in array
+		chunksNodes: this.chunksNodes, // references to chunk nodes
+		chunksUsed: this.chunksUsed, // bool if chunks are used
+		mapDimensions: this.mapDimensions, // two element array, dimensions
+		mapTiles: this.mapTiles // number of map tiles "drawn"
 	};
 };
 
