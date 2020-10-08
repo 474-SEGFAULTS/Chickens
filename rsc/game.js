@@ -61,7 +61,7 @@ $(document).ready(function () {
 	renderer = new Renderer('background-layer', 'tiles');
 	// menu buttons
 	$("#single-player-btn").click(function () {
-		renderer.drawMap(level0);
+		renderer.drawMap(level1);
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});
