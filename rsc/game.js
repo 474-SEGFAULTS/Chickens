@@ -31,7 +31,7 @@ document.addEventListener('keydown', function(event){
         alert('open inventory');
     }
     else if(event.key=="Escape"){
-        document.getElementById("myForm").display = "block";
+        document.getElementById("myForm").style.display = "block";
     }
 });
 document.addEventListener('keyup', function(event){
@@ -49,7 +49,7 @@ function move(direction){
 }
 
 function closePop(){
-    document.getElementById("myForm").display = "none";
+    document.getElementById("myForm").style.display = "none";
 }
 
 // Author: Happy
