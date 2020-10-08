@@ -27,7 +27,7 @@
 	<script src="rsc/game.js"></script>
 	<script src="rsc/sounds.js"></script>
 	<script src="rsc/healthbar.js"></script>
-	
+
 
 </head>
 
@@ -58,6 +58,16 @@
 			<p><button id='instructionsbtn' type="button" class="button">
 					instructions
 				</button></p>
+
+			<!-- buttons to check the page for HE and BE, only for testing, remove it when game is done!  -->
+			<p><button id='HEbtn' type="button" class="button">
+					happy ending
+				</button></p>
+
+			<p><button id='BEbtn' type="button" class="button">
+					bad ending
+				</button></p>
+
 		</div>
 
 
@@ -77,6 +87,7 @@
 
 	<!-- instructions_menu -->
 	<div id='instructions'>
+
 		<div id="Instruction_title">
 			<h1>Instructions</h1>
 		</div>
@@ -97,7 +108,40 @@
 				</button></p>
 		</div>
 
+
 	</div>
+
+	<!-- end scene -->
+	<div id='happyEnding'>
+		<div class="moving_chicken"></div>
+		<h1>:D Congrats!!!</h1>
+		<h2>You Protected us from the enemies</h2>
+		<h2>You Defeat <h2>
+				<h1 id=score>20</h1>
+				<h2>enemies !!!</h2>
+				<h2>Want to play again?</h2>
+				<div id="restart_button" style="text-align: center">
+					<p><button id='restartbtn' type="button" class="button">
+							restart
+						</button></p>
+				</div>
+
+	</div>
+
+	<div id='badEnding'>
+		<div class="moving_chicken"></div>
+		<h1>It's not the END</h1>
+		<h2>We'll find another YouDee to help with you</h2>
+		<h2>Just press restart</h2>
+		<div id="restart_button2" style="text-align: center">
+			<p><button id='restartbtn2' type="button" class="button">
+					restart
+				</button></p>
+		</div>
+
+	</div>
+
+
 </body>
 
 </html>

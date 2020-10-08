@@ -8,43 +8,43 @@
 // Author: Jiamian
 // handle all the key press
 
-document.addEventListener('keydown', function(event){
-    if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
+document.addEventListener('keydown', function (event) {
+    if (event.key.toLowerCase() == 'w' | event.key == 'ArrowUp') {
         alert('up');
         move('up');
     }
-    else if(event.key.toLowerCase()=='s' | event.key=='ArrowDown'){
+    else if (event.key.toLowerCase() == 's' | event.key == 'ArrowDown') {
         alert('down');
         move('down');
     }
-    else if(event.key.toLowerCase()=='a' | event.key=='ArrowLeft'){
+    else if (event.key.toLowerCase() == 'a' | event.key == 'ArrowLeft') {
         move('left');
         //alert('left');
-        playSound('WalkExpand',true);
+        playSound('WalkExpand', true);
     }
-    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+    else if (event.key.toLowerCase() == 'd' | event.key == 'ArrowRight') {
         //alert('right');
         move('right');
-        playSound('WalkExpand',true);
+        playSound('WalkExpand', true);
     }
-    else if(event.key.toLowerCase()=='e'){
+    else if (event.key.toLowerCase() == 'e') {
         alert('open inventory');
     }
-    else if(event.key=="Esacpe"){
+    else if (event.key == "Esacpe") {
         alert('pause');
     }
 });
-document.addEventListener('keyup', function(event){
-    if(event.key.toLowerCase()=='a' | event.key=='ArrowUp'){
+document.addEventListener('keyup', function (event) {
+    if (event.key.toLowerCase() == 'a' | event.key == 'ArrowUp') {
         stopSound('WalkExpand');
     }
-    else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
+    else if (event.key.toLowerCase() == 'd' | event.key == 'ArrowRight') {
         stopSound('WalkExpand');
     }
 });
 // Author: Jiamian
 // move the Chickens
-function move(direction){
+function move(direction) {
     //TODO
 }
 
@@ -60,14 +60,43 @@ $(document).ready(function () {
     $("#instructionsbtn").click(function () {
         $('#menuScreen').fadeOut('fast', function () {
             $('#instructions').fadeIn('fast');
-        });  
+        });
     });
-    $("#mainMenubtn").click(function(){
+    $("#mainMenubtn").click(function () {
         $('#instructions').fadeOut('fast', function () {
             $('#menuScreen').fadeIn('fast');
-        });  
+        });
     });
+    //please remove the HEbtn and BEbtn when game is done
+    $("#HEbtn").click(function () {
+        $('#menuScreen').fadeOut('fast', function () {
+            $('#happyEnding').fadeIn('fast');
+        });
+    });
+    $("#BEbtn").click(function () {
+        $('#menuScreen').fadeOut('fast', function () {
+            $('#badEnding').fadeIn('fast');
+        });
+    });
+    $("#restartbtn").click(function () {
+        $('#happyEnding').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
+        });
+    });
+    $("#restartbtn2").click(function () {
+        $('#badEnding').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
+        });
+    });
+
+
 });
+
+// used to track how many enemy defeated
+// setScore(300);
+function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 /**
  * 
@@ -79,8 +108,7 @@ $(document).ready(function () {
  * @param {*} radius2 radius of second circle
  * @return true if they intersect, false if they do not
  */
-function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
-{
+function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2) {
     var distSq = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
     var radiusSumSq = Math.pow(radius1 + radius2, 2);
 
@@ -102,18 +130,17 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
  * 
  * Using a vector and inspired by https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
  */
-function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2)
-{
+function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2) {
     // find the end point of the line
-    var lineEndX = (round(x1 + Math.cos(angle1 * 3.14 / 180.0)*length));
-    var lineEndY = (round(y1 + Math.sin(angle1 * 3.15 / 180.0)*length));
+    var lineEndX = (round(x1 + Math.cos(angle1 * 3.14 / 180.0) * length));
+    var lineEndY = (round(y1 + Math.sin(angle1 * 3.15 / 180.0) * length));
 
     // compute the AB segment length
     var LAB = sqrt(Math.pow(lineEndX - x1, 2) + Math.pow(lineEndY - y1, 2));
 
     // compute the direction vector D from A to B
-    var Dx = ((lineEndX - x1)/LAB);
-    var Dy = ((lineEndY - y1)/LAB);
+    var Dx = ((lineEndX - x1) / LAB);
+    var Dy = ((lineEndY - y1) / LAB);
 
     // compute the distance between the points A and E, where
     // E is the point of AB closest the circle center (x2, y2)
