@@ -63,16 +63,14 @@
 	<!-- singel_player -->
 	<div id='singlePlayer'>
 		<p>SinglePlayer Scene</p>
-		<div class="form-popup" id="myForm">
-			<form action="/action_page.php" class="form-container">
-				<h1>Would you like to exit the game?</h1>
-				<button id='backbtn' type="continue" class="btn">
-					Continue Game
-				</button>
-				<button id='cancelbtn' type="exit" class="btn cancel">
-					Exit Game
-				</button>
-			</form>
+		<div class="esc-popup" id="myForm">
+			<h1>Would you like to exit the game?</h1>
+			<button id='backbtn' type="button" class="btn">
+				Continue Game
+			</button>
+			<button id='cancelbtn' type="button" class="btn exit" onclick="closePop()">
+				Exit Game
+			</button>
 
 		</div>
 	</div>

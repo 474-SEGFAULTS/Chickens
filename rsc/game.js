@@ -31,7 +31,6 @@ document.addEventListener('keydown', function(event){
         alert('open inventory');
     }
     else if(event.key=="Escape"){
-        alert('pause');
         document.getElementById("myForm").display = "block";
     }
 });
@@ -47,6 +46,10 @@ document.addEventListener('keyup', function(event){
 // move the Chickens
 function move(direction){
     //TODO
+}
+
+function closePop(){
+    document.getElementById("myForm").display = "none";
 }
 
 // Author: Happy
@@ -67,12 +70,6 @@ $(document).ready(function () {
         $('#instructions').fadeOut('fast', function () {
             $('#menuScreen').fadeIn('fast');
         });  
-    });
-    $("#backbtn").click(function(){
-        document.getElementById("myForm").display = "none";
-    });
-    $('#cancelbtn').click(function(){
-        //Happy's end screen appear
     });
 });
 
