@@ -4,82 +4,24 @@
  */
 
 // ..
-var players=[];
-var healthMax=100;
-var num_player=0;
-var renderer;
-var activeplayer;
-function playerinit(image,active,name,x,y,health,speed,facing){
-    var renderid = renderer.draw(image, x, y);
-    if(activeplayer==null&&active){
-        activeplayer=num_player;
-    };
-    players.push({
-        active: active,
-        name: name,
-        x: x,
-        y: y,
-        health: health,
-        speed: speed,
-        renderid: renderid,
-        facing: facing,
-        onGround: false
-    });
-    
-    return players.length-1
-}
-
-function getPlayerRenderID(id){
-    return players[id]["renderid"]
-}
-
-function getPlayerSpeed(id){
-    return players[id]['speed'];
-}
-
-function setPlayerSpeed(id,speed){
-    players[id]['speed']=speed;
-}
-
-function setPlayerHealth(id,health){
-    players[id]['health']=health;
-}
-
-function shiftPlayerSpeed(id,shift){
-    players[id]['speed']+=shift;
-}
-
-/**
- * Shift the health for a player from the current health.
- *
- * @param 	id 	ID of player given by playerinit() function.
- * @param 	shift	change in health.
- */
-function shiftPlayerHealth(id,shift){
-    players[id]['health']+=shift;
-    if(players[id]['health']>100){
-        players[id]['health']=100;
-    }
-}
+var renderer,player;
+var control={"w":false,"a":false,"s":false,"d":false};
 
 // Author: Jiamian
 // handle all the key press
 
 document.addEventListener('keydown', function(event){
+    control[event.key.toLowerCase()]=true;
     if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
-        console.log('up');
-        move('up');
+        player.setJump(player.getActive(),true);
     }
     else if(event.key.toLowerCase()=='s' | event.key=='ArrowDown'){
         console.log('down');
-        move('down');
     }
     else if(event.key.toLowerCase()=='a' | event.key=='ArrowLeft'){
-        move('left');
         playSound('WalkExpand',true);
     }
     else if(event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
-        move('right');
         playSound('WalkExpand',true);
     }
     else if(event.key.toLowerCase()=='e'){
@@ -88,32 +30,17 @@ document.addEventListener('keydown', function(event){
     else if(event.key=="Esacpe"){
         alert('pause');
     }
+    else if(event.key==" "){
+        alert('space');
+    }
 });
 document.addEventListener('keyup', function(event){
+    control[event.key.toLowerCase()]=false;
     if(event.key.toLowerCase()=='a' | event.key=='ArrowUp'|
     event.key.toLowerCase()=='d' | event.key=='ArrowRight'){
         stopSound('WalkExpand');
     }
 });
-// Author: Jiamian
-// move the Chickens
-function move(direction){
-    if(renderer!=null){
-        var speed=getPlayerSpeed(activeplayer);
-        var renderid=getPlayerRenderID(activeplayer)
-        if(direction=="right"){
-            renderer.shiftTile(renderid,speed,0);
-        }
-        else if(direction=="left"){
-            renderer.shiftTile(renderid,-speed,0);
-        }
-        else if(direction=="up"){
-            players[activeplayer]["onGround"]=false;
-            
-        }
-    }
-}
-
 // Author: Happy
 // jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
@@ -122,7 +49,9 @@ $(document).ready(function () {
         $('#menuScreen').fadeOut('fast', function () {
             $('#singlePlayer').fadeIn('fast');
             renderer = new Renderer('singlePlayer', 'tiles');
-            playerinit('lion',true,"test",50,50,100,1,"right");
+            player=new Player();
+            player.init('lion',true,"test",50,50,100,1,"right");
+            window.requestAnimationFrame(update);
         });
     });
     $("#instructionsbtn").click(function () {
