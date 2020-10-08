@@ -35,6 +35,8 @@ var defaultViewportState = {
 	chunkSize: 10, // 10 x 10
 };
 
+// ================================ CONSTRUCTOR ================================
+
 /**
  * Constructor. By default, pass the ID of the viewport.
  *
@@ -51,6 +53,7 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 	this.tileSource = document.getElementById(tileSource);
 	this.settings = settings; // settings is more like the state of the viewport
 	this.tiles = []; // where tiles are virtually tracked
+	this.map = null; // map layer itself
 	this.mapTiles = 0; // if drawing by map, use this for unique DOM ids
 	this.chunks = []; // id of chunks created
 	this.chunksNodes = []; // nodes of chunk to quickly add
@@ -60,6 +63,29 @@ var Renderer = function(viewport, tileSource, settings=defaultViewportState) {
 	window.onresize = function() {
 		renderer.viewport.setAttribute('style', 'width: ' + window.innerWidth + 'px; height: ' + window.innerHeight + 'px;');
 	};
+};
+
+// ============================== PLAYER MOVEMENT ==============================
+
+/**
+ * Checks to see if there is any "ground" beneath a specified x and y within a
+ * range. Helpful for checking if a player is on ground, and if not, apply
+ * gravity to the player.
+ *
+ * @param 	{int} 	x 		Horizontal position.
+ * @param 	{int}	y 		Vertical position.
+ * @param 	{int} 	range 	Range beneath x, y to look.
+ * @returns {boolean}	True if there's ground beneath, False if not.
+ * @author jvillemare
+ */
+Renderer.prototype.isGroundBeneath = function(x, y, range) {
+	for(var look = 0; look < range; look++) {
+		if(this.map[this.convert2Dto1D(x, y + look, this.mapDimensions.width)] != 0) { // note: if this isn't working, use y - look instead
+			// i can't tell which way is up, anymore
+			return true;
+		}
+	}
+	return false;
 };
 
 // ============================= VIEWPORT / CAMERA =============================
@@ -94,6 +120,7 @@ Renderer.prototype.setZoom = function(zoom) {
 
 /**
  * Helper function. Updates the viewport CSS to the new state.
+ *
  * @return nothing.
  * @author jvillemare
  */
@@ -255,7 +282,7 @@ Renderer.prototype.drawFromTileset = function(tileID, spriteID, whereX, whereY) 
 Renderer.prototype.twoDimensionalDistance = function(x1, y1, x2, y2) {
 	var a = x1 - x2;
 	var b = y1 - y2;
-	var c = Math.sqrt(a*a + b*b);
+	return Math.sqrt(a*a + b*b);
 };
 
 /**
@@ -410,6 +437,7 @@ Renderer.prototype.drawMap = function(mapSource) {
 	if(mapWidth < 0 || mapHeight < 0 || tileWidth < 0 || tileHeight < 0)
 		throw 'Map or tile width or height cannot be less than 0';
 	map = map.layers[0].data; // extract just map data
+	this.map = map;
 	this.mapDimensions.width = mapWidth;
 	this.mapDimensions.height = mapHeight;
 	console.log('mapwidth is ' + mapWidth + ' and mapheight is ' + mapHeight);

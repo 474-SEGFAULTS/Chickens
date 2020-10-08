@@ -36,7 +36,7 @@
 }
 
 .button {
-	font-family: Gloria Hallelujah;
+	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
 	background-color:  rgb(52, 115, 173); /* Green */
 	color: white;
 	font-size: 20px;
@@ -46,16 +46,19 @@
 }
 
 .button:hover {
-    background-color: white;
-    color: rgb(52, 115, 173);
-    border: 2px solid rgb(52, 115, 173);
+	background-color: white;
+	color: rgb(52, 115, 173);
+	border: 2px solid rgb(52, 115, 173);
 }
 
 /* title */
-h1 {
+h6 {
+	color: white;
+	filter: drop-shadow(3px 3px 8px #000);
 	font-family: Gloria Hallelujah;
 	text-align: center;
-	font-size: 300%;
+	font-size: 2em;
+	margin: 0;
 }
 
 /* Instruction */
@@ -75,9 +78,36 @@ h2 {
 }
 
 body {
-	width: 100vw;
-	height: 100vh;
-	background-position: center 0;
+	background-image: url('img/main_menu_background.jpg');
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-clip: padding-box;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+}
+
+.title, .title_logo {
+	margin-top: 5em;
+}
+
+.main-buttons {
+	margin-top: 1.5em;
+	padding: 3em 0;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+a {
+	color: #fff111;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fff111;
+	text-decoration: underline;
+	cursor:pointer;
 }
 
 #singlePlayer, #instructions {
@@ -85,6 +115,185 @@ body {
 	display: none;
 }
 
+.instructions-title, .instructions-written {
+	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
+	filter: drop-shadow(3px 3px 8px #000);
+	color: white;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 2em;
+}
+
+.instructions-written {
+	text-align: left !important;
+	line-height: 1.5em;
+	font-size: 1.8em;
+}
+
+#instructions {
+	margin-top: 4em;
+}
+
+.bell_pepper_animation_right{
+    width: 50px;
+    height: 50px;
+    background: url('img/dynamic/weapons/bell_pepper.png');
+    animation: move_weapon_right 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.bell_pepper_animation_left{
+    width: 50px;
+    height: 50px;
+    background: url('img/dynamic/weapons/bell_pepper.png');
+    animation: move_weapon_left 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.chiltepin_animation_right{
+    width: 50px;
+    height: 50px;
+    background: url('img/dynamic/weapons/chiltepin.png') center;
+    animation: move_weapon_right 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.chiltepin_animation_left{
+    width: 50px;
+    height: 50px;
+    background: url('img/dynamic/weapons/chiltepin.png') center;
+    animation: move_weapon_left 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move_weapon_right{
+    0% {transform: translateX(0)}
+    100% {transform: translateX(200px)}
+}
+
+@keyframes move_weapon_left{
+    0% {transform: translateX(0)}
+    100% {transform: translateX(-200px)}
+}
+
+.y-flappingLeft, .y-walkingLeft, .y-idleLeft, .y-flappingRight, .y-walkingRight, .y-idleRight {
+	background-image: url('img/dynamic/characters/youdee_spritesheet.png');
+	background-repeat: no-repeat;
+	height: 50px;
+	width: 30px;
+}
+
+.y-walkingLeft {
+  animation: walk-left 0.5s steps(2) infinite;
+}
+.y-flappingLeft {
+  animation: left-flapping 0.5s steps(4) alternate infinite;
+}
+.y-walkingRight {
+  transform: rotateY(180deg);
+  animation: walk-left 0.5s steps(2) infinite;
+}
+.y-flappingRight {
+  transform: rotateY(180deg);
+  animation: left-flapping 0.5s steps(4) alternate infinite;
+}
+.y-idleRight {
+  transform: rotateY(180deg);
+}
+
+
+@keyframes walk-left {
+	from { background-position-x:-150px; }
+	to { background-position-x:-210px; }
+}
+
+@keyframes left-flapping {
+	from { background-position-x:-90px; }
+	to { background-position-x:30px; }
+}
+
+.garlic {
+	width: 50px;
+	height: 50px;
+	background: url('img/dynamic/weapons/garlic_bomb/garlic.png') center;
+	animation: move_weapon 2s;
+	animation-direction: normal;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+  @keyframes move_weapon {
+    0% { transform: translateX(0); opacity: 1;}
+    90% {
+        width: 35px;
+        height: 35px;
+        background: url('img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+  }
+
+  .enemy_weapon {
+    width: 100px;
+    height: 100px;
+    background: url('img/dynamic/weapons/enemy_weapon.png'); /*incorrect needs to be enemy weapon*/
+
+    animation: red-attack 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes red-attack {
+    0% { transform: translateX(0); opacity: 1;}
+    100% {
+        transform: translateX(400px);
+        opacity: 1;
+    }
+  }
+
+.esc-popup {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    border: 3px solid #f1f1f1;
+    text-align: center;
+}
+
+.form-container {
+    max-width: 300px;
+    background-color: white;
+}
+
+.form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+.form-container .exit {
+    background-color: red;
+}
+
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
 
 /* sprite data
  * all sprites are prefixed with t. they all share the terrain.png image and are
@@ -139,61 +348,6 @@ body {
 	height: 8px; /* all tiles are 8x8 pixels */
 	width: 8px;
 	position: fixed; /* all tiles need to be fixed to set them in a position */
-}
-
-body{
-    display: flex;
-    justify-items: center;
-}
-
-.bell_pepper_animation_right{
-    width: 50px;
-    height: 50px;
-    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
-    animation: move_weapon_right 1s linear;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-.bell_pepper_animation_left{
-    width: 50px;
-    height: 50px;
-    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
-    animation: move_weapon_left 1s linear;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-.chiltepin_animation_right{
-    width: 50px;
-    height: 50px;
-    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
-    animation: move_weapon_right 1s linear;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-.chiltepin_animation_left{
-    width: 50px;
-    height: 50px;
-    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
-    animation: move_weapon_left 1s linear;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-@keyframes move_weapon_right{
-    0% {transform: translateX(0)}
-    100% {transform: translateX(200px)}
-}
-
-@keyframes move_weapon_left{
-    0% {transform: translateX(0)}
-    100% {transform: translateX(-200px)}
 }
 
 .t0 { background-position: -0px -0px; }
@@ -445,132 +599,3 @@ body{
 .t2684354612 { background-position: -232px -523776504px; }
 .t2684354652 { background-position: -224px -523776512px; }
 .t2684354653 { background-position: -232px -523776512px; }
-
-.y-flappingLeft, .y-walkingLeft, .y-idleLeft, .y-flappingRight, .y-walkingRight, .y-idleRight {
-  background-image: url('/rsc/img/dynamic/characters/youdee_spritesheet.png');
-  background-repeat: no-repeat;
-  height: 50px;
-  width: 30px;
-}
-
-.y-walkingLeft {
-  animation: walk-left 0.5s steps(2) infinite;
-}
-.y-flappingLeft {
-  animation: left-flapping 0.5s steps(4) alternate infinite;
-}
-.y-walkingRight {
-  transform: rotateY(180deg);
-  animation: walk-left 0.5s steps(2) infinite;
-}
-.y-flappingRight {
-  transform: rotateY(180deg);
-  animation: left-flapping 0.5s steps(4) alternate infinite;
-}
-.y-idleRight {
-  transform: rotateY(180deg);
-}
-
-
-@keyframes walk-left {
-  from{background-position-x:-150px;}
-  to{background-position-x:-210px;}
-}
-
-  @keyframes left-flapping {
-    from{background-position-x:-90px;}
-    to{background-position-x:30px;}
-  }
-
-body {
-    display: flex;
-    justify-content: center;
-  }
-
-  .garlic {
-    width: 50px;
-    height: 50px;
-    background: url('/rsc/img/dynamic/weapons/garlic_bomb/garlic.png') center;
-
-    animation: move_weapon 2s;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes move_weapon {
-    0% { transform: translateX(0); opacity: 1;}
-    90% {
-        width: 35px;
-        height: 35px;
-        background: url('/rsc/img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(400px);
-        opacity: 0;
-    }
-  }
-
-  body {
-    display: flex;
-    justify-content: center;
-  }
-
-  .enemy_weapon {
-    width: 100px;
-    height: 100px;
-    background: url('/rsc/img/dynamic/weapons/blood_bottle.png'); /*incorrect needs to be enemy weapon*/
-
-    animation: red-attack 1s;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes red-attack {
-    0% { transform: translateX(0); opacity: 1;}
-    100% {
-        transform: translateX(400px);
-        opacity: 1;
-    }
-  }
-
-
-#singlePlayer, #instructions {
-    /* selector, selector means the style applies to both selectors */
-    display: none;
-}
-
-.esc-popup {
-    display: none;
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    border: 3px solid #f1f1f1;
-    text-align: center;
-}
-
-.form-container {
-    max-width: 300px;
-    background-color: white;
-}
-
-.form-container .btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-.form-container .exit {
-    background-color: red;
-}
-  
-.form-container .btn:hover, .open-button:hover {
-    opacity: 1;
-}
