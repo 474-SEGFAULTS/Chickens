@@ -30,8 +30,8 @@ document.addEventListener('keydown', function(event){
     else if(event.key.toLowerCase()=='e'){
         alert('open inventory');
     }
-    else if(event.key=="Esacpe"){
-        alert('pause');
+    else if(event.key=="Escape"){
+        document.getElementById("myForm").style.display = "block";
     }
 });
 document.addEventListener('keyup', function(event){
@@ -46,6 +46,10 @@ document.addEventListener('keyup', function(event){
 // move the Chickens
 function move(direction){
     //TODO
+}
+
+function closePop(){
+    document.getElementById("myForm").style.display = "none";
 }
 
 // Author: Happy
