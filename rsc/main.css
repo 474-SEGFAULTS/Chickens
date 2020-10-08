@@ -193,7 +193,7 @@ body{
 
 @keyframes move_weapon_left{
     0% {transform: translateX(0)}
-    100% {transform: translateX(-200px)
+    100% {transform: translateX(-200px)}
 }
 
 .t0 { background-position: -0px -0px; }
