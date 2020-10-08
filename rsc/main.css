@@ -132,11 +132,12 @@ body {
 .t856, .t857, .t862, .t863, .t864, .t872, .t873, .t874, .t875, .t876, .t877,
 .t878, .t880, .t881, .t882, .t883, .t884, .t885, .t886, .t887, .t888, .t889,
 .t894, .t895, .t896, .t897, .t898, .t2147483858, .t2684354611, .t2684354612,
-.t2684354652, .t2684354653, {
+.t2684354652, .t2684354653 {
 	background-image: url('rsc/data/map/terrain.png');
-	background-repeat: no-repeat;
-	height: 8px;
+	background-repeat: no-repeat; /* get only a part of it */
+	height: 8px; /* all tiles are 8x8 pixels */
 	width: 8px;
+	position: fixed; /* all tiles need to be fixed to set them in a position */
 }
 
 .t0 { background-position: -0px -0px; }
