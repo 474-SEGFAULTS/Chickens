@@ -136,7 +136,7 @@ a:hover {
 .bell_pepper_animation_right{
     width: 50px;
     height: 50px;
-    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
+    background: url('img/dynamic/weapons/bell_pepper.png');
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -146,7 +146,7 @@ a:hover {
 .bell_pepper_animation_left{
     width: 50px;
     height: 50px;
-    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
+    background: url('img/dynamic/weapons/bell_pepper.png');
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -156,7 +156,7 @@ a:hover {
 .chiltepin_animation_right{
     width: 50px;
     height: 50px;
-    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
+    background: url('img/dynamic/weapons/chiltepin.png') center;
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -166,7 +166,7 @@ a:hover {
 .chiltepin_animation_left{
     width: 50px;
     height: 50px;
-    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
+    background: url('img/dynamic/weapons/chiltepin.png') center;
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -184,10 +184,10 @@ a:hover {
 }
 
 .y-flappingLeft, .y-walkingLeft, .y-idleLeft, .y-flappingRight, .y-walkingRight, .y-idleRight {
-  background-image: url('/rsc/img/dynamic/characters/youdee_spritesheet.png');
-  background-repeat: no-repeat;
-  height: 50px;
-  width: 30px;
+	background-image: url('img/dynamic/characters/youdee_spritesheet.png');
+	background-repeat: no-repeat;
+	height: 50px;
+	width: 30px;
 }
 
 .y-walkingLeft {
@@ -219,24 +219,22 @@ a:hover {
 	to { background-position-x:30px; }
 }
 
-
-
-  .garlic {
-    width: 50px;
-    height: 50px;
-    background: url('img/dynamic/weapons/enemy_weapon.png') center;
-    animation: move_weapon 2s;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
+.garlic {
+	width: 50px;
+	height: 50px;
+	background: url('img/dynamic/weapons/garlic_bomb/garlic.png') center;
+	animation: move_weapon 2s;
+	animation-direction: normal;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
 
   @keyframes move_weapon {
     0% { transform: translateX(0); opacity: 1;}
     90% {
         width: 35px;
         height: 35px;
-        background: url('/rsc/img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
+        background: url('img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
         opacity: 1;
     }
     100% {
@@ -248,7 +246,7 @@ a:hover {
   .enemy_weapon {
     width: 100px;
     height: 100px;
-    background: url('/rsc/img/dynamic/weapons/blood_bottle.png'); /*incorrect needs to be enemy weapon*/
+    background: url('img/dynamic/weapons/enemy_weapon.png'); /*incorrect needs to be enemy weapon*/
 
     animation: red-attack 1s;
     animation-direction: normal;
