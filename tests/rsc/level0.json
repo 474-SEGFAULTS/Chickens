@@ -1,0 +1,40 @@
+{
+	"compressionlevel": -1,
+	"height": 90,
+	"infinite": false,
+	"layers":[
+		{
+			"data": [
+				214,
+				214,
+				173,
+				0
+			],
+			"height": 2,
+			"id": 9,
+			"name": "blocks",
+			"opacity": 1,
+			"type": "tilelayer",
+			"visible": true,
+			"width": 2,
+			"x": 0,
+			"y": 0
+		}
+	],
+	"nextlayerid": 10,
+	"nextobjectid": 1,
+	"orientation": "orthogonal",
+	"renderorder": "right-down",
+	"tiledversion": "1.4.2",
+	"tileheight": 8,
+	"tilesets": [
+		{
+			"firstgid": 1,
+			"source": "terrain.json"
+		}
+	],
+	"tilewidth": 8,
+	"type": "map",
+	"version": 1.4,
+	"width": 160
+}
