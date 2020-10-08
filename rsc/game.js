@@ -30,8 +30,9 @@ document.addEventListener('keydown', function(event){
     else if(event.key.toLowerCase()=='e'){
         alert('open inventory');
     }
-    else if(event.key=="Esacpe"){
+    else if(event.key=="Escape"){
         alert('pause');
+        document.getElementById("myForm").display = "block";
     }
 });
 document.addEventListener('keyup', function(event){
@@ -66,6 +67,9 @@ $(document).ready(function () {
         $('#instructions').fadeOut('fast', function () {
             $('#menuScreen').fadeIn('fast');
         });  
+    });
+    $("#backbtn").click(function(){
+        document.getElementById("myForm").display = "none";
     });
 });
 
