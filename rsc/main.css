@@ -36,7 +36,7 @@
 }
 
 .button {
-	font-family: Gloria Hallelujah;
+	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
 	background-color:  rgb(52, 115, 173); /* Green */
 	color: white;
 	font-size: 20px;
@@ -113,6 +113,24 @@ a:hover {
 #singlePlayer, #instructions {
 	/* selector, selector means the style applies to both selectors */
 	display: none;
+}
+
+.instructions-title, .instructions-written {
+	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
+	filter: drop-shadow(3px 3px 8px #000);
+	color: white;
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 2em;
+}
+
+.instructions-written {
+	text-align: left !important;
+	line-height: 1.5em;
+	font-size: 1.8em;
+}
+
+#instructions {
+	margin-top: 4em;
 }
 
 .bell_pepper_animation_right{
@@ -246,11 +264,6 @@ a:hover {
         opacity: 1;
     }
   }
-
-#singlePlayer, #instructions {
-    /* selector, selector means the style applies to both selectors */
-    display: none;
-}
 
 .esc-popup {
     display: none;
