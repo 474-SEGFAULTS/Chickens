@@ -85,6 +85,7 @@ body {
 	display: none;
 }
 
+
 /* sprite data
  * all sprites are prefixed with t. they all share the terrain.png image and are
  * 8x8 px in size. since the image is in the background, and it's only 8x8 px,
@@ -138,6 +139,61 @@ body {
 	height: 8px; /* all tiles are 8x8 pixels */
 	width: 8px;
 	position: fixed; /* all tiles need to be fixed to set them in a position */
+}
+
+body{
+    display: flex;
+    justify-items: center;
+}
+
+.bell_pepper_animation_right{
+    width: 50px;
+    height: 50px;
+    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
+    animation: move_weapon_right 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.bell_pepper_animation_left{
+    width: 50px;
+    height: 50px;
+    background: url('/rsc/img/dynamic/weapons/bell_pepper.png');
+    animation: move_weapon_left 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.chiltepin_animation_right{
+    width: 50px;
+    height: 50px;
+    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
+    animation: move_weapon_right 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.chiltepin_animation_left{
+    width: 50px;
+    height: 50px;
+    background: url('/rsc/img/dynamic/weapons/chiltepin.png') center;
+    animation: move_weapon_left 1s linear;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move_weapon_right{
+    0% {transform: translateX(0)}
+    100% {transform: translateX(200px)}
+}
+
+@keyframes move_weapon_left{
+    0% {transform: translateX(0)}
+    100% {transform: translateX(-200px)
 }
 
 .t0 { background-position: -0px -0px; }
@@ -486,7 +542,7 @@ body {
     display: none;
 }
 
-.esc-popup{
+.esc-popup {
     display: none;
     position: absolute;
     top: 25%;
@@ -498,9 +554,9 @@ body {
 .form-container {
     max-width: 300px;
     background-color: white;
-  }
+}
 
-  .form-container .btn {
+.form-container .btn {
     background-color: #4CAF50;
     color: white;
     padding: 16px 20px;
@@ -509,12 +565,12 @@ body {
     width: 100%;
     margin-bottom:10px;
     opacity: 0.8;
-  }
+}
 
-  .form-container .exit {
+.form-container .exit {
     background-color: red;
-  }
-
-  .form-container .btn:hover, .open-button:hover {
+}
+  
+.form-container .btn:hover, .open-button:hover {
     opacity: 1;
-  }
+}
