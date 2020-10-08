@@ -196,14 +196,14 @@ a:hover {
   background-repeat: no-repeat;
   height: 30px;
   width: 30px;
-  background-position-x: 1px;
-  background-position-y: 20 px;
+  background-position-x: -19px;
+  background-position-y: 182 px;
   animation: smoke_show 1s steps() infinite;
 }
 
 @keyframes smoke_show{
-  from {background-position-x: 1px}
-  to {background-position-y: 50 px}
+  from {background-position-x: -19px}
+  to {background-position-x: -467px}
 }
 
 .y-walkingLeft {
