@@ -29,8 +29,8 @@ document.addEventListener('keydown', function(event){
     else if(event.key.toLowerCase()=='e'){
         alert('open inventory');
     }
-    else if(event.key=="Esacpe"){
-        alert('pause');
+    else if(event.key=="Escape"){
+        document.getElementById("myForm").style.display = "block";
     }
 });
 
@@ -47,6 +47,10 @@ document.addEventListener('keyup', function(event){
 // move the Chickens
 function move(direction){
     //TODO
+}
+
+function closePop(){
+    document.getElementById("myForm").style.display = "none";
 }
 
 // Author: Happy
@@ -133,3 +137,5 @@ function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2) {
     return (LEC < radius2);
 
 };
+
+var enemy_spawn = [[11,9], [44,6], [10,22], [33,16], [63, 23], [47,29], [4, 42], [74,42]];
