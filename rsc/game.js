@@ -3,13 +3,13 @@
  * Holds game state and game logic.
  */
 
-// ..
-var renderer,player;
+
+var renderer = null,player = null;
 var control={"w":false,"a":false,"s":false,"d":false};
+
 
 // Author: Jiamian
 // handle all the key press
-
 document.addEventListener('keydown', function(event){
     control[event.key.toLowerCase()]=true;
     if(event.key.toLowerCase()=='w' | event.key=='ArrowUp'){
@@ -34,6 +34,7 @@ document.addEventListener('keydown', function(event){
         alert('space');
     }
 });
+
 document.addEventListener('keyup', function(event){
     control[event.key.toLowerCase()]=false;
     if(event.key.toLowerCase()=='a' | event.key=='ArrowUp'|
@@ -42,6 +43,7 @@ document.addEventListener('keyup', function(event){
     }
 });
 
+
 function closePop(){
     document.getElementById("myForm").style.display = "none";
 }
@@ -49,30 +51,34 @@ function closePop(){
 // Author: Happy
 // jquery start new singleGameScene/instructionScene
 $(document).ready(function () {
-    addSounds();
-    $("#singlePlayerbtn").click(function () {
-        $('#menuScreen').fadeOut('fast', function () {
-            $('#singlePlayer').fadeIn('fast');
-            renderer = new Renderer('singlePlayer', 'tiles');
-            player=new Player();
-            player.init('lion',true,"test",50,50,100,1,"right");
-            window.requestAnimationFrame(update);
-        });
-    });
-    $("#instructionsbtn").click(function () {
-        $('#menuScreen').fadeOut('fast', function () {
-            $('#instructions').fadeIn('fast');
-        });  
-    });
-    $("#mainMenubtn").click(function(){
-        $('#instructions').fadeOut('fast', function () {
-            $('#menuScreen').fadeIn('fast');
-        });  
-    });
+	addSounds();
+	// render
+	renderer = new Renderer('background-layer', 'tiles');
+	// menu buttons
+	$("#single-player-btn").click(function () {
+		renderer.drawMap(level1);
+    player=new Player();
+    player.init('lion',true,"test",50,50,100,1,"right");
+    window.requestAnimationFrame(update);
+		$('#menu-screen').fadeOut('fast', function () {
+			$('#singlePlayer').fadeIn('fast');
+		});
+	});
+	$("#instructions-btn").click(function () {
+		$('#menu-screen').fadeOut('fast', function () {
+			$('#instructions').fadeIn('fast');
+		});
+	});
+	$("#main-menu-btn").click(function(){
+		$('#instructions').fadeOut('fast', function () {
+			$('#menu-screen').fadeIn('fast');
+		});
+	});
 });
 
 /**
- * 
+ * Determines if two circles intersect.
+ *
  * @param {*} x1 coordinate x of first circle
  * @param {*} y1 coordinate y of first circle
  * @param {*} radius1 radius of first circle
@@ -81,8 +87,7 @@ $(document).ready(function () {
  * @param {*} radius2 radius of second circle
  * @return true if they intersect, false if they do not
  */
-function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
-{
+function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2) {
     var distSq = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
     var radiusSumSq = Math.pow(radius1 + radius2, 2);
 
@@ -91,7 +96,8 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
 };
 
 /**
- * 
+ * Detrmines if a line intersects a circle.
+ *
  * @param {*} x1 line point x
  * @param {*} y1 line point y
  * @param {*} angle1 angle of line
@@ -99,13 +105,11 @@ function twoCircleIntersect(x1, y1, radius1, x2, y2, radius2)
  * @param {*} x2 x coordinate of circle
  * @param {*} y2 y coordinate of circle
  * @param {*} radius2 radius of circle (to be given as a double)
- * 
- * @return returns true if line intersects and false if it does not
- * 
- * Using a vector and inspired by https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+ * @return returns true if line intersects, and false if it does not
+ *
+ * Using a vector and inspired by https://stackoverflow.com/q/1073336/13158722
  */
-function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2)
-{
+function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2) {
     // find the end point of the line
     var lineEndX = (round(x1 + Math.cos(angle1 * 3.14 / 180.0)*length));
     var lineEndY = (round(y1 + Math.sin(angle1 * 3.15 / 180.0)*length));

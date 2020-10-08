@@ -4,7 +4,6 @@ var renderer = new Renderer('background-layer', 'tiles');
 renderer.draw('A', 0, 0);
 renderer.draw('B', 128, 0);
 
-
 document.getElementById("reset").onclick = function(event) {
 	renderer.moveViewport(0, 0, 0);
 };
