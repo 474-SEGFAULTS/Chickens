@@ -57,9 +57,9 @@ $(document).ready(function () {
 	// menu buttons
 	$("#single-player-btn").click(function () {
 		renderer.drawMap(level1);
-    player=new Player();
-    player.init('lion',true,"test",50,50,100,1,"right");
-    window.requestAnimationFrame(update);
+        player=new Player();
+        player.init('player',true,"test",50,50,100,1,"right");
+        window.requestAnimationFrame(update);
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});

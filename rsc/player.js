@@ -80,10 +80,52 @@ Player.prototype.getJump=function(id){
 Player.prototype.setJump=function(id,jump){
   this.players[id].jumping=jump;
 }
+Player.prototype.getFacing=function(id){
+  return this.players[id].facing;
+}
+Player.prototype.setFacing=function(id,facing){
+  this.players[id].facing=facing;
+}
+
 function update(){
   var active=player.getActive();
   var x = (control.d - control.a) * player.getSpeed(active);
   var y = 0;
+  var move=["y-flappingLeft", "y-walkingLeft", "y-idleLeft","y-flappingRight", "y-walkingRight", "y-idleRight"];
+  var renderid=player.getRenderID(active);
+  $("#" + renderid + ".player").removeClass(move);
+  console.log(x);
+  if (x > 0) {
+    //$("#" + renderid + ".player").removeClass(left);
+    player.setFacing(active, "right");
+    //$("#" + renderid + ".player").removeClass(right);
+    if (player.getJump(active)) {
+      $("#" + renderid + ".player").addClass("y-flappingRight");
+    }
+    else {
+      $("#" + renderid + ".player").addClass("y-walkingRight");
+    }
+
+  }
+  else if (x < 0) {
+    player.setFacing(active, "left");
+    if (player.getJump(active)) {
+      $("#" + renderid + ".player").addClass("y-flappingLeft");
+    }
+    else {
+      $("#" + renderid + ".player").addClass("y-walkingLeft");
+    }
+  }
+  else{
+    if (player.getFacing(active) == "right"){
+      $("#" + renderid + ".player").addClass("y-idleRight");
+    }
+    else{
+      $("#" + renderid + ".player").addClass("y-idleLeft");
+    }
+    
+  }
+
   if (control.w && !player.getJump(active)) {
     player.setJump(active,true);
     y -= 40;
