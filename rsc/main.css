@@ -191,6 +191,21 @@ a:hover {
   background-position-x: -120px;
 }
 
+.smoke_ani{
+  background-image: url('img/dynamic/characters/smoke.png');
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  background-position-x: 1px;
+  background-position-y: 20 px;
+  animation: smoke_show 1s steps() infinite;
+}
+
+@keyframes smoke_show{
+  from {background-position-x: 1px}
+  to {background-position-y: 50 px}
+}
+
 .y-walkingLeft {
   animation: walk-left 0.5s steps(2) infinite;
 }
