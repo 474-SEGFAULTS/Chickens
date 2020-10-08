@@ -175,3 +175,37 @@ body {
     /* selector, selector means the style applies to both selectors */
     display: none;
 }
+
+.esc-popup{
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    border: 3px solid #f1f1f1;
+    text-align: center;
+}
+
+.form-container {
+    max-width: 300px;
+    background-color: white;
+  }
+
+  .form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+
+  .form-container .exit {
+    background-color: red;
+  }
+  
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+  
