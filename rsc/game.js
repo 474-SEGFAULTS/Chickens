@@ -10,6 +10,7 @@ var weapons=[];
 var enemy_spawn = [[11,9], [44,6], [10,22], [33,16], [63, 23], [47,29], [4, 42], [74,42]];
 var delay=1000;
 var lastClick=0;
+var loop;
 
 // Author: Jiamian
 // handle all the key press
@@ -78,13 +79,13 @@ $(document).ready(function () {
         player=new Player();
         enemy=new Enemy();
         player.init('player',true,"test",50,50,100,1,"right");
-        window.requestAnimationFrame(update);
+        loop=window.requestAnimationFrame(update);
         spawn_enemy()
         for(var i=0;i<enemy_spawn.length;i++){
             //enemy.init("lion",enemy_spawn[i][0]*8,enemy_spawn[i][1]*8-22);
             //enemy.init("dragon",enemy_spawn[i][0]*8,enemy_spawn[i][1]*8-22);
         }
-        
+        $('#menuScreen').show();
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});
@@ -110,7 +111,9 @@ $(document).ready(function () {
         });
     });
     $("#cancelbtn").click(function(){
+        window.cancelAnimationFrame(loop);
         renderer.clear();
+        setScore(player.getKill(player.getActive()));
         openHappy();
         $('#singlePlayer').fadeOut('fast');
         $('#happyEnding').fadeIn('fast');
@@ -127,12 +130,6 @@ function spawn_enemy(){
         temp.splice(rand,1);
         enemy.init("lion",x,y,2);
     }
-}
-// used to track how many enemy defeated
- // setScore(300);
- function setScore(count) {
-    document.getElementById('score').innerHTML = count;
-
 }
 
 /**

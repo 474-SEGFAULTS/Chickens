@@ -107,6 +107,9 @@ Player.prototype.getHealthbar=function(id,index){
 Player.prototype.kill=function(id){
   this.players[id].killcount+=1;
 }
+Player.prototype.getKill=function(id){
+  return this.players[id].killcount;
+}
 Player.prototype.switch=function(id){
   this.players[id].weapon=(this.players[id].weapon+1)%this.weapons.length;
 }
