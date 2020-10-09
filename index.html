@@ -37,46 +37,43 @@
 			<div id="foreground-layer"></div>
 		</div>
 
-	<div id="tiles">
+		<div id="tiles">
 		<!-- Put all map, player images that will be "drawn" on the screen
 			here as img tags.
 		-->
-		<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
-		<img id="bmp-map" src="rsc/data/map/map-design.bmp" width="1827px" height="1028px">
-		<div id="player" class="player y-idleLeft" width="30px" height="30px"></div>
-		<img id="lion" src="rsc/img/dynamic/characters/lion_enemy.png" width="100px" height="100px">
-	</div>
-
-	<!-- main_menu -->
-	<div id='menu-screen'>
-		<div class="title">
-			<!--<h1>Chickens</h1>-->
-			<img class="title_logo" src="rsc/img/titlescreen_logo.png" height="180px">
-			<h6>
-				from the
-				<a href="https://github.com/474-SEGFAULTS/Chickens" title="Go to our GitHub page.">
-					SEGFAULTS
-				</a>
-			</h6>
+			<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
+			<img id="bmp-map" src="rsc/data/map/map-design.bmp" width="1827px" height="1028px">
+			<div id="player" class="player y-idleLeft" width="30px" height="30px"></div>
+			<img id="lion" src="rsc/img/dynamic/characters/lion_enemy.png" width="100px" height="100px">
 		</div>
-		<div class="main-buttons" style="text-align: center">
-			<p><button id='single-player-btn' type="button" class="button">
-				single player
-			</button></p>
 
-			<p><button id='instructions-btn' type="button" class="button">
-				instructions
-			</button></p>
+		<!-- main_menu -->
+		<div id='menu-screen'>
+			<div class="title">
+				<!--<h1>Chickens</h1>-->
+				<img class="title_logo" src="rsc/img/titlescreen_logo.png" height="180px">
+				<h6>
+					from the
+					<a href="https://github.com/474-SEGFAULTS/Chickens" title="Go to our GitHub page.">
+						SEGFAULTS
+					</a>
+				</h6>
+			</div>
+			<div class="main-buttons" style="text-align: center">
+				<p><button id='single-player-btn' type="button" class="button">
+					single player
+				</button></p>
+
+				<p><button id='instructions-btn' type="button" class="button">
+					instructions
+				</button></p>
+			</div>
 		</div>
 	</div>
 
 	<!-- singel_player -->
 
 	<div id='single-player'>
-		<div id="game">
-			<div id="background-layer"></div>
-			<div id="foreground-layer"></div>
-		</div>
 		<div class="esc-popup" id="myForm">
 			<form class="form-container">
 				<h1>Would you like to exit the game?</h1>
@@ -118,7 +115,7 @@
 		<div class="moving_chicken"></div>
 			<h1>:D Congrats!!!</h1>
 			<h2>You protected us from the enemies</h2>
-			<h2>You defeated <h2>
+			<h2>You defeated </h2>
 			<h1 id=score>20</h1>
 			<h2>enemies !!!</h2>
 			<h2>Want to play again?</h2>
@@ -126,6 +123,7 @@
 				<p><button id='restartbtn' type="button" class="button">
 					restart
 				</button></p>
+			</div>
 		</div>
 	</div>
    
