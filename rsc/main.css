@@ -74,7 +74,8 @@ h2 {
 	background-repeat: no-repeat;
 	position: absolute;
 	width: 100%;
-	height: 100%;
+  height: 100%;
+  display: none;
 }
 
 body {
@@ -89,7 +90,7 @@ body {
 }
 
 .title, .title_logo {
-	margin-top: 5em;
+  margin-top: 5em;
 }
 
 .main-buttons {
@@ -110,10 +111,12 @@ a:hover {
 	cursor:pointer;
 }
 
-#singlePlayer, #instructions {
-	/* selector, selector means the style applies to both selectors */
+/*
+#singlePlayer, #instructions, #happyEnding,
+#badEnding {
+	/* selector, selector means the style applies to both selectors 
 	display: none;
-}
+} */
 
 .instructions-title, .instructions-written {
 	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
@@ -123,20 +126,68 @@ a:hover {
 	padding: 2em;
 }
 
+.healthgreen {
+  width: 30px;
+}
 .instructions-written {
 	text-align: left !important;
 	line-height: 1.5em;
 	font-size: 1.8em;
 }
 
-#instructions {
-	margin-top: 4em;
+#instructions, #happyEnding, #badEnding {
+     /* background-color: rgb(183, 220, 247); */
+     background-image: url('img/static/endBackground.jpg');
+     background-size: 100% 100%;
+     position: absolute;
+     z-index: 1;
+     background-repeat: no-repeat;
+     width: 100%;
+     height: 100%;
+     text-align: center;
+     display: none;
+ }
+
+ .bubble_animation_right{
+  position: relative;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  /*background: url('img/dynamic/weapons/bubble_wand/bubbles.png');*/
+  animation: move_weapon_right 2s linear;
 }
 
+.bubble_animation_left{
+  position: relative;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  /*background: url('img/dynamic/weapons/bubble_wand/bubbles.png');*/
+  animation: move_weapon_left 2s linear;
+}
+
+.thai_pepper_animation_right {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  /*background: url('img/dynamic/weapons/thai_pepper.png');*/
+  animation: move_weapon_right 1s linear;
+}
+
+.thai_pepper_animation_left {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  /*background: url('img/dynamic/weapons/thai_pepper.png');*/
+  animation: move_weapon_left 1s linear;
+}
+
+
 .bell_pepper_animation_right{
+  position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/bell_pepper.png');
+    /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -144,9 +195,10 @@ a:hover {
 }
 
 .bell_pepper_animation_left{
+  position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/bell_pepper.png');
+    /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -154,9 +206,10 @@ a:hover {
 }
 
 .chiltepin_animation_right{
+    position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/chiltepin.png') center;
+    /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -164,9 +217,10 @@ a:hover {
 }
 
 .chiltepin_animation_left{
+    position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/chiltepin.png') center;
+    /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -236,23 +290,32 @@ from { background-position-x:0px; }
 to { background-position-x:-60px; }
 }
 
-
-.garlic {
+.garlic_animation_right {
 	width: 50px;
 	height: 50px;
-	background: url('img/dynamic/weapons/garlic_bomb/garlic.png') center;
-	animation: move_weapon 2s;
+	/*background: url('rsc/img/dynamic/weapons/garlic/garlic.png') center;*/
+	animation: move_garlic_right 2s;
 	animation-direction: normal;
 	animation-iteration-count: 1;
 	animation-fill-mode: forwards;
 }
 
-  @keyframes move_weapon {
+.garlic_animation_left {
+	width: 50px;
+	height: 50px;
+	/*background: url('rsc/img/dynamic/weapons/garlic/garlic.png') center;*/
+	animation: move_garlic_left 2s;
+	animation-direction: normal;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+  @keyframes move_garlic_right {
     0% { transform: translateX(0); opacity: 1;}
     90% {
         width: 35px;
         height: 35px;
-        background: url('img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
+        background: url('img/dynamic/weapons/garlic/garlic_explosion.png') no-repeat;
         opacity: 1;
     }
     100% {
@@ -260,22 +323,54 @@ to { background-position-x:-60px; }
         opacity: 0;
     }
   }
+  @keyframes move_garlic_left {
+    0% { transform: translateX(0); opacity: 1;}
+    90% {
+        width: 35px;
+        height: 35px;
+        background: url('img/dynamic/weapons/garlic/garlic_explosion.png') no-repeat;
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-400px);
+        opacity: 0;
+    }
+  }
 
-  .enemy_weapon {
-    width: 100px;
-    height: 100px;
-    background: url('img/dynamic/weapons/enemy_weapon.png'); /*incorrect needs to be enemy weapon*/
+  .enemy_weapon_right {
+    width: 50px;
+    height: 50px;
+    /*background: url('img/dynamic/weapons/enemy_weapon.png'); /*incorrect needs to be enemy weapon*/
 
-    animation: red-attack 1s;
+    animation: enemy_right 1s;
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
 
-  @keyframes red-attack {
+  .enemy_weapon_left {
+    width: 50px;
+    height: 50px;
+    /*background: url('img/dynamic/weapons/enemy_weapon.png'); /*incorrect needs to be enemy weapon*/
+
+    animation: enemy_left 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes enemy_right {
     0% { transform: translateX(0); opacity: 1;}
     100% {
-        transform: translateX(400px);
+        transform: translateX(200px);
+        opacity: 1;
+    }
+  }
+  
+  @keyframes enemy_left {
+    0% { transform: translateX(0); opacity: 1;}
+    100% {
+        transform: translateX(-200px);
         opacity: 1;
     }
   }
