@@ -212,6 +212,15 @@ function update() {
 		player.setJump(active, true);
 		y -= 5;
 	}
+	// fix flapping
+	if(x == 0 && y !=0){
+	$("#" + renderid + ".player").removeClass(move);
+	if (player.getFacing(active) == "left") {
+			$("#" + renderid + ".player").addClass("y-flappingLeft");
+		} else {
+			$("#" + renderid + ".player").addClass("y-flappingRight");
+		}
+	}
 	if (player.getX(active) > 600) {
 		player.setX(active, 600);
 		x = 0;
