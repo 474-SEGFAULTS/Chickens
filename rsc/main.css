@@ -15,6 +15,23 @@
 	display: none;
 }
 
+.wave-number, .enemies-number {
+	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
+	font-size: 2em;
+	color: white;
+	position: fixed;
+}
+
+.wave-number {
+	top: 0.5em;
+	left: 1em;
+}
+
+.enemies-number {
+	top: 0.5em;
+	right: 1em;
+}
+
 #background-layer { /* where the game is */
 	z-index: 1;
 	transition: all .35s ease-in-out; /* for zooming and moving viewport camera */
@@ -74,8 +91,8 @@ h2 {
 	background-repeat: no-repeat;
 	position: absolute;
 	width: 100%;
-  height: 100%;
-  display: none;
+	height: 100%;
+	display: none;
 }
 
 body {
@@ -114,7 +131,7 @@ a:hover {
 /*
 #singlePlayer, #instructions, #happyEnding,
 #badEnding {
-	/* selector, selector means the style applies to both selectors 
+	/* selector, selector means the style applies to both selectors
 	display: none;
 } */
 
@@ -148,8 +165,8 @@ a:hover {
      display: none;
  }
 
- .bubble_animation_right{
-  position: relative;
+.bubble_animation_right {
+  position: fixed;
   z-index: 1;
   width: 20px;
   height: 20px;
@@ -157,8 +174,8 @@ a:hover {
   animation: move_weapon_right 2s linear;
 }
 
-.bubble_animation_left{
-  position: relative;
+.bubble_animation_left {
+  position: fixed ;
   z-index: 1;
   width: 20px;
   height: 20px;
@@ -167,7 +184,7 @@ a:hover {
 }
 
 .thai_pepper_animation_right {
-  position: relative;
+  position: fixed;
   width: 50px;
   height: 50px;
   /*background: url('img/dynamic/weapons/thai_pepper.png');*/
@@ -175,16 +192,15 @@ a:hover {
 }
 
 .thai_pepper_animation_left {
-  position: relative;
+  position: fixed;
   width: 50px;
   height: 50px;
   /*background: url('img/dynamic/weapons/thai_pepper.png');*/
   animation: move_weapon_left 1s linear;
 }
 
-
-.bell_pepper_animation_right{
-  position: relative;
+.bell_pepper_animation_right {
+    position: fixed;
     width: 50px;
     height: 50px;
     /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
@@ -195,7 +211,7 @@ a:hover {
 }
 
 .bell_pepper_animation_left{
-  position: relative;
+    position: fixed;
     width: 50px;
     height: 50px;
     /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
@@ -206,7 +222,7 @@ a:hover {
 }
 
 .chiltepin_animation_right{
-    position: relative;
+    position: fixed;
     width: 50px;
     height: 50px;
     /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
@@ -217,7 +233,7 @@ a:hover {
 }
 
 .chiltepin_animation_left{
-    position: relative;
+    position: fixed;
     width: 50px;
     height: 50px;
     /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
@@ -227,22 +243,22 @@ a:hover {
     animation-fill-mode: forwards;
 }
 
-@keyframes move_weapon_right{
-    0% {transform: translateX(0)}
-    100% {transform: translateX(200px)}
+@keyframes move_weapon_right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(200px); }
 }
 
-@keyframes move_weapon_left{
-    0% {transform: translateX(0)}
-    100% {transform: translateX(-200px)}
+@keyframes move_weapon_left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-200px); }
 }
 
 .y-flappingLeft, .y-walkingLeft, .y-idleLeft, .y-flappingRight, .y-walkingRight, .y-idleRight {
 	background-image: url('img/dynamic/characters/yoUDee-spritesheet.png');
 	background-repeat: no-repeat;
 	height: 30px;
-  width: 30px;
-  background-position-x: -120px;
+	width: 30px;
+	background-position-x: -120px;
 }
 
 .y-walkingLeft {
@@ -350,7 +366,7 @@ a:hover {
         opacity: 1;
     }
   }
-  
+
   @keyframes enemy_left {
     0% { transform: translateX(0); opacity: 1;}
     100% {
