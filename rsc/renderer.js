@@ -23,14 +23,51 @@
  * @date 2019-10-06
  */
 
+/**
+ * Complete function reference.
+ *
+ * Renderer(viewport, tileSource, settings=defaultViewportState)
+ * isGroundBeneath(x, y, range)
+ * checkZoom(zoom)
+ * setZoom(zoom)
+ * updateViewport()
+ * generateZoomCSS(zoom)
+ * generateTranslateCSS(whereX, whereY)
+ * moveViewport(x, y, zoom)
+ * moveViewport(x, y)
+ * shiftViewport(dx, dy)
+ * zoomOutMax()
+ * clear()
+ * drawFromTileset(tileID, spriteID, whereX, whereY)
+ * twoDimensionalDistance(x1, y1, x2, y2)
+ * deleteChunkTilesInRadius(whereX, whereY, radius)
+ * getChunkID(positions, width, chunkSize)
+ * chunkDoesExist(id)
+ * convert1Dto2D(x, mapWidth)
+ * convert2Dto1D(x, y, mapWidth)
+ * basicArrayEquals(a1, a2)
+ * drawStaticMap(mapID)
+ * drawMap(mapSource)
+ * moveTile(id, x, y)
+ * shiftTile(id, dx, dy)
+ * draw(imageName, whereX, whereY)
+ * resizeViewport()
+ * isTileInViewport(tile)
+ * getChunkInfo()
+ * getX()
+ * getY()
+ * getZoom()
+ * getTiles()
+ */
+
 // structure of the renderer influenced by
 // https://stackoverflow.com/a/2206630/13158722
 
 var defaultViewportState = {
 	x: 0, // horizontal position of viewport
 	y: 0, // vertical position of viewport
-	zoom: 0, // current zoom level of viewport
-	maxZoom: 10, // max zoom level
+	zoom: 38, // current zoom level of viewport
+	maxZoom: 100, // max zoom level
 	minZoom: 0, // min zoom level
 	chunkSize: 10, // 10 x 10
 };

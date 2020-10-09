@@ -6,17 +6,19 @@
 		Chickens, https://github.com/474-SEGFAULTS/Chickens
 
 		Members:
-			@luckyruby1,
-			@vivatheest,
-			@happyaaa,
-			@wjm, and
-			@jvillemare
+			@luckyruby1 (Lisa Panthia),
+			@vivatheest (Viva Laas),
+			@happyaaa (Xing Gao),
+			@wjm (Jiamian Wang), and
+			@jvillemare (James Villemarette)
 
 		Team Name: The SegFaults
+		Made between September and October, 2020
 		-->
+
 	<meta charset="utf-8">
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<title>Chickens: A Worm-like Game</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="rsc/main.css">
@@ -26,64 +28,70 @@
 	<script src="rsc/sounds.js"></script>
 	<script src="rsc/data/map/level0.js"></script>
 	<script src="rsc/data/map/level1.js"></script>
-	<script src="rsc/game.js"></script>
 	<script src="rsc/player.js"></script>
 	<script src="rsc/enemy.js"></script>
+	<script src="rsc/game.js"></script>
 
 </head>
 <body>
+	<div id="tiles">
+		<!-- Put all maps, player images, and other sprites that will be "drawn"
+			on the screen here as img tags.
+		-->
+		<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
+		<img id="bmp-map" src="rsc/data/map/map-design.bmp" width="1827px" height="1028px">
+		<div id="player" class="player y-idleLeft" width="30px" height="30px"></div>
+		<img id="health" src="rsc/img/static/health.png" class="healthbar" width="30px" height="2px">
+		<img id="healthgreen" src="rsc/img/static/healthgreen.png" class="healthgreen" width="30px" height="2px">
+		<img id="lion" class="enemy" src="rsc/img/dynamic/characters/lion.png" width="30px" height="30px">
+		<img id="dragon" class="enemy" src="rsc/img/dynamic/characters/dragon.png" width="42px" height="30px">
+		<img id="chiltepin" class="chiltepin" src="rsc/img/dynamic/weapons/chiltepin/chiltepin.png" width="100px" height="100px">
+		<img id="bell_pepper" class="bell_pepper" src="rsc/img/dynamic/weapons/bell_pepper/bell_pepper.png" width="100px" height="100px">
+		<img id="bubble" class="bubble" src="rsc/img/dynamic/weapons/bubble/bubbles.png" width="100px" height="100px">
+		<img id="thai_pepper" class="thai_pepper" src="rsc/img/dynamic/weapons/thai_pepper/thai_pepper.png" width="100px" height="100px">
+		<img id="garlic" class="garlic" src="rsc/img/dynamic/weapons/garlic/garlic.png" width="100px" height="100px">
+		<img id="enemy_weapon" class="enemy_weapon" src="rsc/img/dynamic/weapons/enemy_weapon.png" width="100px" height="100px">
+	</div>
+
 	<!-- main_menu -->
-	<div id='menuScreen'>
-		<div id="game">
-			<div id="background-layer"></div>
-			<div id="foreground-layer"></div>
+	<div id="game">
+		<div id="background-layer"></div>
+		<div id="foreground-layer">
+			<div class="wave-number">
+				Wave <span id="wave-number-counter">1</span>
+			</div>
+			<div class="enemies-number">
+				<span id="enemies-number-counter">5</span> enemies left!
+			</div>
 		</div>
 	</div>
-		<div id="tiles">
-		<!-- Put all map, player images that will be "drawn" on the screen
-			here as img tags.
-		-->
-			<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
-			<img id="bmp-map" src="rsc/data/map/map-design.bmp" width="1827px" height="1028px">
-			<div id="player" class="player y-idleLeft" width="30px" height="30px"></div>
-      <img id="health" src="rsc/img/static/health.png" class="healthbar" width="30px" height="2px">
-		  <img id="healthgreen" src="rsc/img/static/healthgreen.png" class="healthgreen" width="30px" height="2px">
-		  <img id="lion" class="enemy" src="rsc/img/dynamic/characters/lion.png" width="30px" height="30px">
-	  	<img id="dragon" class="enemy" src="rsc/img/dynamic/characters/dragon.png" width="42px" height="30px">
-	  	<img id="chiltepin" class="chiltepin" src="rsc/img/dynamic/weapons/chiltepin/chiltepin.png" width="100px" height="100px">
-			<img id="bell_pepper" class="bell_pepper" src="rsc/img/dynamic/weapons/bell_pepper/bell_pepper.png" width="100px" height="100px">
-			<img id="bubble" class="bubble" src="rsc/img/dynamic/weapons/bubble/bubbles.png" width="100px" height="100px">
-			<img id="thai_pepper" class="thai_pepper" src="rsc/img/dynamic/weapons/thai_pepper/thai_pepper.png" width="100px" height="100px">
-			<img id="garlic" class="garlic" src="rsc/img/dynamic/weapons/garlic/garlic.png" width="100px" height="100px">
-	  	<img id="enemy_weapon" class="enemy_weapon" src="rsc/img/dynamic/weapons/enemy_weapon.png" width="100px" height="100px">
 
+	<!-- main menu -->
+	<div id='menu-screen'>
+		<div class="title">
+			<img class="title_logo" src="rsc/img/titlescreen_logo.png" height="180px">
+			<h6>
+				from the
+				<a href="https://github.com/474-SEGFAULTS/Chickens" title="Go to our GitHub page.">
+					SEGFAULTS
+				</a>
+			</h6>
 		</div>
-
-		<!-- main_menu -->
-		<div id='menu-screen'>
-			<div class="title">
-				<!--<h1>Chickens</h1>-->
-				<img class="title_logo" src="rsc/img/titlescreen_logo.png" height="180px">
-				<h6>
-					from the
-					<a href="https://github.com/474-SEGFAULTS/Chickens" title="Go to our GitHub page.">
-						SEGFAULTS
-					</a>
-				</h6>
-			</div>
-			<div class="main-buttons" style="text-align: center">
-				<p><button id='single-player-btn' type="button" class="button">
+		<div class="main-buttons" style="text-align: center">
+			<p>
+				<button id='single-player-btn' type="button" class="button">
 					single player
-				</button></p>
-
-				<p><button id='instructions-btn' type="button" class="button">
+				</button>
+			</p>
+			<p>
+				<button id='instructions-btn' type="button" class="button">
 					instructions
-				</button></p>
-			</div>
+				</button>
+			</p>
 		</div>
+	</div>
 
-	<!-- singel_player -->
-
+	<!-- single player -->
 	<div id='single-player'>
 		<div class="esc-popup" id="myForm">
 			<form class="form-container">
@@ -121,34 +129,36 @@
 		</div>
 	</div>
 
-		<!-- end scene -->
+	<!-- end scene -->
 	<div id='happyEnding'>
 		<div class="moving_chicken"></div>
-			<h1>:D Congrats!!!</h1>
-			<h2>You protected us from the enemies</h2>
-			<h2>You defeated </h2>
-			<h1 id=score>20</h1>
-			<h2>enemies !!!</h2>
-			<h2>Want to play again?</h2>
-			<div id="restart_button" style="text-align: center">
-				<p><button id='restartbtn' type="button" class="button">
+		<h1>:D Congrats!!!</h1>
+		<h2>You protected us from the enemies</h2>
+		<h2>You defeated </h2>
+		<h1 id=score>20</h1>
+		<h2>enemies !!!</h2>
+		<h2>Want to play again?</h2>
+		<div id="restart_button" style="text-align: center">
+			<p>
+				<button id='restartbtn' type="button" class="button">
 					restart
-				</button></p>
-			</div>
+				</button>
+			</p>
 		</div>
 	</div>
-   
+
 	<div id='badEnding'>
 		<div class="moving_chicken"></div>
 		<h1>It's not the END</h1>
 		<h2>We'll find another YouDee to help with you</h2>
 		<h2>Just press restart</h2>
 		<div id="restart_button2" style="text-align: center">
-			<p><button id='restartbtn2' type="button" class="button">
-				restart
-			</button></p>
+			<p>
+				<button id='restartbtn2' type="button" class="button">
+					restart
+				</button>
+			</p>
 		</div>
-   
 	</div>
 
 </body>
