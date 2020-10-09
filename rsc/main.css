@@ -110,7 +110,8 @@ a:hover {
 	cursor:pointer;
 }
 
-#singlePlayer, #instructions {
+#singlePlayer, #instructions, #happyEnding,
+#badEnding {
 	/* selector, selector means the style applies to both selectors */
 	display: none;
 }
@@ -129,9 +130,52 @@ a:hover {
 	font-size: 1.8em;
 }
 
-#instructions {
-	margin-top: 4em;
+#instructions,
+ #happyEnding,
+ #badEnding {
+     /* background-color: rgb(183, 220, 247); */
+     background-image: url('img/static/endBackground.jpg');
+     background-size: 100% 100%;
+     position: absolute;
+     z-index: 1;
+     background-repeat: no-repeat;
+     width: 100%;
+     height: 100%;
+     text-align: center;
+ }
+
+ .bubble_animation_right{
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  background: url('img/dynamic/weapons/bubble_wand/bubbles.png');
+  animation: move_weapon_right 2s linear;
 }
+
+.bubble_animation_left{
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  background: url('img/dynamic/weapons/bubble_wand/bubbles.png');
+  animation: move_weapon_left 2s linear;
+}
+
+.thaiPepper_animation_right {
+  width: 20px;
+  height: 20px;
+  background: url('img/dynamic/weapons/thai_pepper.png');
+  animation: move_weapon_right 2s linear;
+}
+
+.thaiPepper_animation_left {
+  width: 20px;
+  height: 20px;
+  background: url('img/dynamic/weapons/thai_pepper.png');
+  animation: move_weapon_left 2s linear;
+}
+
 
 .bell_pepper_animation_right{
     width: 50px;

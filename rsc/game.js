@@ -43,6 +43,11 @@ document.addEventListener('keyup', function(event){
     }
 });
 
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 function closePop(){
     document.getElementById("myForm").style.display = "none";
@@ -73,8 +78,29 @@ $(document).ready(function () {
 		$('#instructions').fadeOut('fast', function () {
 			$('#menu-screen').fadeIn('fast');
 		});
-	});
+    });
+    $("#restartbtn").click(function(){
+        $('#happyEnding').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
+        });
+    });
+    $("#restartbtn2").click(function () {
+        $('#badEnding').fadeOut('fast', function () {
+            $('#menuScreen').fadeIn('fast');
+        });
+    });
+    $("#cancelbtn").click(function(){
+        $('#singlePlayer').fadeOut('fast', function () {
+            $('#happyEnding').fadeIn('fast');
+        });
+    });
 });
+
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 /**
  * Determines if two circles intersect.
