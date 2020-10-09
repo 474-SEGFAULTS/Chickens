@@ -43,8 +43,17 @@ document.addEventListener('keyup', function(event){
     }
 });
 
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 function closePop(){
+    document.getElementById("myForm").style.display = "none";
+}
+
+function openHappy(){
     document.getElementById("myForm").style.display = "none";
 }
 
@@ -53,9 +62,10 @@ function closePop(){
 $(document).ready(function () {
 	addSounds();
 	// render
-	renderer = new Renderer('background-layer', 'tiles');
+	
 	// menu buttons
 	$("#single-player-btn").click(function () {
+        renderer = new Renderer('background-layer', 'tiles');
 		renderer.drawMap(level1);
         player=new Player();
         player.init('player',true,"test",50,50,100,1,"right");
@@ -65,16 +75,38 @@ $(document).ready(function () {
 		});
 	});
 	$("#instructions-btn").click(function () {
-		$('#menu-screen').fadeOut('fast', function () {
+		$('#menuScreen').fadeOut('fast', function () {
 			$('#instructions').fadeIn('fast');
 		});
 	});
 	$("#main-menu-btn").click(function(){
 		$('#instructions').fadeOut('fast', function () {
-			$('#menu-screen').fadeIn('fast');
+			$('#menuScreen').fadeIn('fast');
 		});
-	});
+    });
+    $("#restartbtn").click(function(){
+        $('#happyEnding').fadeOut('fast', function () {
+            $('#menu-screen').fadeIn('fast');
+        });
+    });
+    $("#restartbtn2").click(function () {
+        $('#badEnding').fadeOut('fast', function () {
+            $('#menu-screen').fadeIn('fast');
+        });
+    });
+    $("#cancelbtn").click(function(){
+        renderer.clear();
+        openHappy();
+        $('#singlePlayer').fadeOut('fast');
+        $('#happyEnding').fadeIn('fast');
+    });
 });
+
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 /**
  * Determines if two circles intersect.
