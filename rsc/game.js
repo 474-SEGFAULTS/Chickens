@@ -51,8 +51,17 @@ document.addEventListener('keyup', function(event){
     }
 });
 
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+}
 
 function closePop(){
+    document.getElementById("myForm").style.display = "none";
+}
+
+function openHappy(){
     document.getElementById("myForm").style.display = "none";
 }
 
@@ -61,9 +70,10 @@ function closePop(){
 $(document).ready(function () {
 	addSounds();
 	// render
-	renderer = new Renderer('background-layer', 'tiles');
+	
 	// menu buttons
 	$("#single-player-btn").click(function () {
+        renderer = new Renderer('background-layer', 'tiles');
 		renderer.drawMap(level1);
         player=new Player();
         enemy=new Enemy();
@@ -80,18 +90,35 @@ $(document).ready(function () {
 		});
 	});
 	$("#instructions-btn").click(function () {
-		$('#menu-screen').fadeOut('fast', function () {
+		$('#menuScreen').fadeOut('fast', function () {
 			$('#instructions').fadeIn('fast');
 		});
 	});
 	$("#main-menu-btn").click(function(){
 		$('#instructions').fadeOut('fast', function () {
-			$('#menu-screen').fadeIn('fast');
+			$('#menuScreen').fadeIn('fast');
 		});
-	});
+    });
+    $("#restartbtn").click(function(){
+        $('#happyEnding').fadeOut('fast', function () {
+            $('#menu-screen').fadeIn('fast');
+        });
+    });
+    $("#restartbtn2").click(function () {
+        $('#badEnding').fadeOut('fast', function () {
+            $('#menu-screen').fadeIn('fast');
+        });
+    });
+    $("#cancelbtn").click(function(){
+        renderer.clear();
+        openHappy();
+        $('#singlePlayer').fadeOut('fast');
+        $('#happyEnding').fadeIn('fast');
+    });
 });
 
-async function spawn_enemy(){
+
+function spawn_enemy(){
     var temp=Array.from(enemy_spawn);
     for(var i=0;i<Math.pow(2,player.stage);i++){
         var rand=Math.floor(Math.random() * Math.floor(temp.length));
@@ -100,6 +127,12 @@ async function spawn_enemy(){
         temp.splice(rand,1);
         enemy.init("lion",x,y,2);
     }
+
+// used to track how many enemy defeated
+ // setScore(300);
+ function setScore(count) {
+    document.getElementById('score').innerHTML = count;
+
 }
 
 /**
