@@ -23,7 +23,6 @@ Enemy.prototype.hit=function(id,count){
   if(this.enemy[id].hits<=0){
     $("#"+this.enemy[id].renderid+".enemy").attr("src","rsc/img/dynamic/characters/blank.png");
     $("#"+this.enemy[id].renderid+".enemy").addClass("poof-smoke").delay(1000).queue(function(){
-      console.log("test");
       $(this).remove();
     });
     
