@@ -5,7 +5,7 @@ var Player=function(){
   this.active=null;
   this.num_player=0;
   this.stage=1;
-  this.weapons=["bell_pepper","chiltepin"];
+  this.weapons=["bell_pepper","chiltepin","bubble","thai_pepper","garlic"];
 }
 
 Player.prototype.init=function(image,active,name,x,y,health,speed,facing){
@@ -32,7 +32,9 @@ Player.prototype.init=function(image,active,name,x,y,health,speed,facing){
   
   return this.players.length-1;
 }
-
+Player.prototype.getPlayer=function(id){
+  return this.players[id];
+}
 Player.prototype.getRenderID=function(id){
   return this.players[id].renderid;
 }
@@ -127,10 +129,23 @@ Player.prototype.shoot=function(id){
   }
   var enemies=enemy.getEnemy();
   for(var i=0;i<enemies.length;i++){
-    if(Math.abs(enemies[i].y-player.getY(id))<5&&Math.abs(enemies[i].x-player.getX(id))<200){
-      time=Math.abs(enemies[i].x-player.getX(id))*5;
-      enemy.hit(i,1);
+    if(weapon=="garlic"){
+      time=2000;
+        if(Math.abs(enemies[i].y-player.getY(id))<16&&Math.abs(enemies[i].x-player.getX(id))<400){
+          if((enemies[i].x<player.getX(id)&&this.getFacing(id)=="left")||(enemies[i].x>player.getX(id)&&this.getFacing(id)=="right")){
+            time=Math.abs(enemies[i].x-player.getX(id))*10;
+            enemy.hit(i,2);
+          }
+        }
     }
+    else{
+      if(Math.abs(enemies[i].y-player.getY(id))<16&&Math.abs(enemies[i].x-player.getX(id))<200){
+        if((enemies[i].x<player.getX(id)&&this.getFacing(id)=="left")||(enemies[i].x>player.getX(id)&&this.getFacing(id)=="right")){
+          time=Math.abs(enemies[i].x-player.getX(id))*5;
+          enemy.hit(i,1);
+        }
+      }
+    } 
   }
   setTimeout(
     function(){
@@ -143,6 +158,11 @@ Player.prototype.shoot=function(id){
 }
 
 function update(){
+  var rand=Math.floor(Math.random() * Math.floor(200/player.stage));
+  if(rand==1){
+    var randenemy=Math.floor(Math.random() * Math.floor(enemy.getEnemy().length));
+    enemy.shoot(randenemy);
+  }
   var active=player.getActive();
   var x = (control.d - control.a) * player.getSpeed(active);
   var y = 0;
@@ -193,15 +213,23 @@ function update(){
     player.setJump(active,true);
     y -= 60;
   }
-  /*if (player.getY(active) > 60) {
-    player.setJump(active,false);
-    player.setY(active,60);
-    y = 0;
-  }*/
+  if (player.getX(active) > 600) {
+    player.setX(active,600);
+    x = 0;
+  }
+  if (player.getX(active) < 16) {
+    player.setX(active,16);
+    x = 0;
+  }
   var health=player.getHealth(active)*30/100;
+  if(player.getHealth(active)<=0){
+    chickenDead();
+  }
   player.shiftX(active, x);
   player.shiftY(active, y);
   player.move(active);
   $("#"+player.getHealthbar(active,1)+".healthgreen").css("width",health+"px");
-  window.requestAnimationFrame(update);
+  if(going){
+    window.requestAnimationFrame(update);
+  }
 }

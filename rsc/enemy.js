@@ -7,7 +7,6 @@ var Enemy=function(){
 }
 
 Enemy.prototype.init=function(image,x,y,hits){
-  console.log(x,y);
   var renderid = renderer.draw(image, x, y);
   this.enemy.push({
     x:x,
@@ -21,12 +20,30 @@ Enemy.prototype.getEnemy=function(){
 }
 Enemy.prototype.hit=function(id,count){
   this.enemy[id].hits-=count;
-  if(this.enemy[id].hits==0){
+  if(this.enemy[id].hits<=0){
     $("#"+this.enemy[id].renderid+".enemy").remove();
     this.enemy.splice(id,1);
     player.kill(player.getActive());
   }
 }
 Enemy.prototype.shoot=function(id){
-  
+  var bullet;
+  var directions=["left","right"];
+  var rand=Math.floor(Math.random() * Math.floor(2));
+  var dir=directions[rand];
+  var enemy=this.enemy[id];
+  var time=1000;
+  var hen=player.getPlayer(player.getActive());
+  bullet=renderer.draw("enemy_weapon",enemy.x,enemy.y);
+  $("#"+bullet+".enemy_weapon").addClass("enemy_weapon_"+dir);
+  if(Math.abs(enemy.y-hen.y)<5&&Math.abs(enemy.x-hen.x)<200){
+    if((enemy.x<hen.x&&dir=="right")||(enemy.x>hen.x&&dir=="left")){
+      time=Math.abs(enemy.x-hen.x)*5;
+      player.shiftHealth(player.getActive(),-25);
+    }
+  }
+  setTimeout(
+    function(){
+      $("#"+bullet+".enemy_weapon").remove();
+    },time);
 }
