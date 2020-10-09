@@ -21,7 +21,11 @@ Enemy.prototype.getEnemy=function(){
 Enemy.prototype.hit=function(id,count){
   this.enemy[id].hits-=count;
   if(this.enemy[id].hits<=0){
-    $("#"+this.enemy[id].renderid+".enemy").remove();
+    $("#"+this.enemy[id].renderid+".enemy").attr("src","rsc/img/dynamic/characters/blank.png");
+    $("#"+this.enemy[id].renderid+".enemy").addClass("poof-smoke").delay(1000).queue(function(){
+      $(this).remove();
+    });
+    
     this.enemy.splice(id,1);
     player.kill(player.getActive());
   }
