@@ -99,7 +99,8 @@ $(document).ready(function() {
             //enemy.init("dragon",enemy_spawn[i][0]*8,enemy_spawn[i][1]*8-22);
         }
         $('#game').show();
-		$('.wave-number').show();
+        $('.wave-number').show();
+        $('.weapon_in_use').show();
 		$('.enemies-number').show();
         $('#menu-screen').fadeOut('fast', function() {
             $('#singlePlayer').fadeIn('fast');

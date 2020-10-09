@@ -15,7 +15,7 @@
 	display: none;
 }
 
-.wave-number, .enemies-number {
+.weapon_in_use, .wave-number, .enemies-number {
 	font-family: Gloria Hallelujah, "Comic Sans", sans-serif, serif;
 	font-size: 2em;
 	color: white;
@@ -293,6 +293,7 @@ a:hover {
 
 .poof-smoke{
   background-image: url('img/dynamic/weapons/poof-sheet.png');
+  z-index : 100;
   background-repeat: no-repeat;
   height: 30px;
   width: 30px;

@@ -115,7 +115,9 @@ Player.prototype.getKill = function(id) {
 	return this.players[id].killcount;
 }
 Player.prototype.switch = function(id) {
-	this.players[id].weapon = (this.players[id].weapon + 1) % this.weapons.length;
+  this.players[id].weapon = (this.players[id].weapon + 1) % this.weapons.length;
+  var weapon = this.weapons[this.players[id].weapon]
+  $(".weapon_in_use img").attr("src","rsc/img/dynamic/weapons/"+weapon+"/"+weapon+".png")
 }
 Player.prototype.shoot = function(id) {
 	var bullet;
