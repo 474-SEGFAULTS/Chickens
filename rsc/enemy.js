@@ -27,6 +27,7 @@ Enemy.prototype.hit=function(id,count){
   }
 }
 Enemy.prototype.shoot=function(id){
+  playSound("shoot");
   var bullet;
   var directions=["left","right"];
   var rand=Math.floor(Math.random() * Math.floor(2));

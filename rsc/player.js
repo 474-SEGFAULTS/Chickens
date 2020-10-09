@@ -119,6 +119,7 @@ Player.prototype.shoot=function(id){
   var bullet;
   var weapon=this.weapons[this.players[id].weapon]
   var time=1000;
+  
   if(this.getFacing(id)=="right"){
     bullet=renderer.draw(weapon,player.getX(id),player.getY(id));
     $("#"+bullet+"."+weapon).addClass(weapon+"_animation_right");
@@ -130,19 +131,23 @@ Player.prototype.shoot=function(id){
   var enemies=enemy.getEnemy();
   for(var i=0;i<enemies.length;i++){
     if(weapon=="garlic"){
+      playSound("explosion1");
       time=2000;
         if(Math.abs(enemies[i].y-player.getY(id))<16&&Math.abs(enemies[i].x-player.getX(id))<400){
           if((enemies[i].x<player.getX(id)&&this.getFacing(id)=="left")||(enemies[i].x>player.getX(id)&&this.getFacing(id)=="right")){
             time=Math.abs(enemies[i].x-player.getX(id))*10;
             enemy.hit(i,2);
+            
           }
         }
     }
     else{
+      playSound("psss");
       if(Math.abs(enemies[i].y-player.getY(id))<16&&Math.abs(enemies[i].x-player.getX(id))<200){
         if((enemies[i].x<player.getX(id)&&this.getFacing(id)=="left")||(enemies[i].x>player.getX(id)&&this.getFacing(id)=="right")){
           time=Math.abs(enemies[i].x-player.getX(id))*5;
           enemy.hit(i,1);
+          
         }
       }
     } 
