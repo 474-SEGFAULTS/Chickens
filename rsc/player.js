@@ -206,10 +206,11 @@ function update() {
 		y += 2;
 	} else {
 		player.setJump(active, false);
+		//jumpState = 0;
 	}
-	if (control.w && !player.getJump(active)) {
+	if (control.w /*&& !player.getJump(active)*/) {
 		player.setJump(active, true);
-		y -= 60;
+		y -= 5;
 	}
 	if (player.getX(active) > 600) {
 		player.setX(active, 600);

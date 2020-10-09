@@ -66,7 +66,7 @@
 var defaultViewportState = {
 	x: 0, // horizontal position of viewport
 	y: 0, // vertical position of viewport
-	zoom: 35, // current zoom level of viewport
+	zoom: 38, // current zoom level of viewport
 	maxZoom: 100, // max zoom level
 	minZoom: 0, // min zoom level
 	chunkSize: 10, // 10 x 10
