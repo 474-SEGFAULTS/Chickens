@@ -27,6 +27,7 @@
 	<script src="rsc/data/map/level1.js"></script>
 	<script src="rsc/game.js"></script>
 	<script src="rsc/player.js"></script>
+	<script src="rsc/enemy.js"></script>
 
 </head>
 <body>
@@ -36,7 +37,7 @@
 			<div id="background-layer"></div>
 			<div id="foreground-layer"></div>
 		</div>
-
+	</div>
 		<div id="tiles">
 		<!-- Put all map, player images that will be "drawn" on the screen
 			here as img tags.
@@ -44,7 +45,17 @@
 			<img id="terrain" src="rsc/data/map/terrain.png" width="328px" height="257px" data-tileset="true">
 			<img id="bmp-map" src="rsc/data/map/map-design.bmp" width="1827px" height="1028px">
 			<div id="player" class="player y-idleLeft" width="30px" height="30px"></div>
-			<img id="lion" src="rsc/img/dynamic/characters/lion_enemy.png" width="100px" height="100px">
+      <img id="health" src="rsc/img/static/health.png" class="healthbar" width="30px" height="2px">
+		  <img id="healthgreen" src="rsc/img/static/healthgreen.png" class="healthgreen" width="30px" height="2px">
+		  <img id="lion" class="enemy" src="rsc/img/dynamic/characters/lion.png" width="30px" height="30px">
+	  	<img id="dragon" class="enemy" src="rsc/img/dynamic/characters/dragon.png" width="42px" height="30px">
+	  	<img id="chiltepin" class="chiltepin" src="rsc/img/dynamic/weapons/chiltepin/chiltepin.png" width="100px" height="100px">
+			<img id="bell_pepper" class="bell_pepper" src="rsc/img/dynamic/weapons/bell_pepper/bell_pepper.png" width="100px" height="100px">
+			<img id="bubble" class="bubble" src="rsc/img/dynamic/weapons/bubble/bubbles.png" width="100px" height="100px">
+			<img id="thai_pepper" class="thai_pepper" src="rsc/img/dynamic/weapons/thai_pepper/thai_pepper.png" width="100px" height="100px">
+			<img id="garlic" class="garlic" src="rsc/img/dynamic/weapons/garlic/garlic.png" width="100px" height="100px">
+	  	<img id="enemy_weapon" class="enemy_weapon" src="rsc/img/dynamic/weapons/enemy_weapon.png" width="100px" height="100px">
+
 		</div>
 
 		<!-- main_menu -->
@@ -69,7 +80,6 @@
 				</button></p>
 			</div>
 		</div>
-	</div>
 
 	<!-- singel_player -->
 

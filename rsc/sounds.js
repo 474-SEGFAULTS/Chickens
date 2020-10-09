@@ -5,7 +5,7 @@
 
 // ...
 //Add cursor select sound on all button
-var sounds=["CursorSelect","explosion1","WalkExpand"];
+var sounds=["CursorSelect","explosion1","WalkExpand","shoot","psss"];
 $(document).ready(function (){
   $('button').click(function(){
     playSound("CursorSelect");
