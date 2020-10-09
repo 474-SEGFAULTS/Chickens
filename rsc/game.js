@@ -127,7 +127,7 @@ function spawn_enemy(){
         temp.splice(rand,1);
         enemy.init("lion",x,y,2);
     }
-
+}
 // used to track how many enemy defeated
  // setScore(300);
  function setScore(count) {
