@@ -161,6 +161,10 @@ Player.prototype.shoot = function(id) {
 }
 
 function update() {
+	// update wave numbers
+	$('#wave-number-counter').text(player.stage);
+	$('#enemies-number-counter').text(enemy.getEnemy().length);
+	// everything else
 	var rand = Math.floor(Math.random() * Math.floor(200 / player.stage));
 	if (rand == 1) {
 		var randenemy = Math.floor(Math.random() * Math.floor(enemy.getEnemy().length));

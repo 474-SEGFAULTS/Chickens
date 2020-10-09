@@ -20,6 +20,7 @@
 	font-size: 2em;
 	color: white;
 	position: fixed;
+	display: none;
 }
 
 .wave-number {
