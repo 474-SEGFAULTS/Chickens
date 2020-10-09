@@ -4,9 +4,12 @@
  */
 
 
-var renderer = null,player = null;
+var renderer = null,player = null,enemy=null;
 var control={"w":false,"a":false,"s":false,"d":false};
-
+var weapons=[];
+var enemy_spawn = [[11,9], [44,6], [10,22], [33,16], [63, 23], [47,29], [4, 42], [74,42]];
+var delay=1000;
+var lastClick=0;
 
 // Author: Jiamian
 // handle all the key press
@@ -25,13 +28,18 @@ document.addEventListener('keydown', function(event){
         playSound('WalkExpand',true);
     }
     else if(event.key.toLowerCase()=='e'){
-        alert('open inventory');
+        player.switch(player.getActive());
     }
     else if(event.key=="Escape"){
         document.getElementById("myForm").style.display = "block";
     }
     else if(event.key==" "){
-        alert('space');
+        event.preventDefault();
+        if (lastClick < (Date.now() - delay)){
+            player.shoot(player.getActive());
+            lastClick = Date.now();
+        }
+        
     }
 });
 
@@ -58,8 +66,15 @@ $(document).ready(function () {
 	$("#single-player-btn").click(function () {
 		renderer.drawMap(level1);
         player=new Player();
+        enemy=new Enemy();
         player.init('player',true,"test",50,50,100,1,"right");
         window.requestAnimationFrame(update);
+        spawn_enemy()
+        for(var i=0;i<enemy_spawn.length;i++){
+            //enemy.init("lion",enemy_spawn[i][0]*8,enemy_spawn[i][1]*8-22);
+            //enemy.init("dragon",enemy_spawn[i][0]*8,enemy_spawn[i][1]*8-22);
+        }
+        
 		$('#menu-screen').fadeOut('fast', function () {
 			$('#singlePlayer').fadeIn('fast');
 		});
@@ -75,6 +90,17 @@ $(document).ready(function () {
 		});
 	});
 });
+
+async function spawn_enemy(){
+    var temp=Array.from(enemy_spawn);
+    for(var i=0;i<Math.pow(2,player.stage);i++){
+        var rand=Math.floor(Math.random() * Math.floor(temp.length));
+        var x=temp[rand][0]*8;
+        var y=temp[rand][1]*8-22;
+        temp.splice(rand,1);
+        enemy.init("lion",x,y,2);
+    }
+}
 
 /**
  * Determines if two circles intersect.
@@ -136,4 +162,3 @@ function lineIntersectCircle(x1, y1, angle1, length, x2, y2, radius2) {
 
 };
 
-var enemy_spawn = [[11,9], [44,6], [10,22], [33,16], [63, 23], [47,29], [4, 42], [74,42]];

@@ -4,10 +4,14 @@ var Player=function(){
   this.defaultspeed=1;
   this.active=null;
   this.num_player=0;
+  this.stage=1;
+  this.weapons=["bell_pepper","chiltepin"];
 }
 
 Player.prototype.init=function(image,active,name,x,y,health,speed,facing){
   var renderid = renderer.draw(image, x, y);
+  var health1=renderer.draw("health",x-2,y);
+  var health2=renderer.draw("healthgreen",x-2,y);
   if(this.active==null&&active){
     this.active=this.num_player;
   }
@@ -20,10 +24,13 @@ Player.prototype.init=function(image,active,name,x,y,health,speed,facing){
       speed: speed,
       renderid: renderid,
       facing: facing,
-      jumping: false
+      jumping: false,
+      healthbar: [health1,health2],
+      killcount: 0,
+      weapon:0
   });
   
-  return this.players.length-1
+  return this.players.length-1;
 }
 
 Player.prototype.getRenderID=function(id){
@@ -76,6 +83,8 @@ Player.prototype.shiftY=function(id,y){
 }
 Player.prototype.move=function(id){
   renderer.moveTile(this.getRenderID(id),this.getX(id),this.getY(id));
+  renderer.moveTile(this.getHealthbar(id,0),this.getX(id)-2,this.getY(id));
+  renderer.moveTile(this.getHealthbar(id,1),this.getX(id)-2,this.getY(id));
 }
 Player.prototype.getActive=function(){
   return this.active;
@@ -91,6 +100,43 @@ Player.prototype.getFacing=function(id){
 }
 Player.prototype.setFacing=function(id,facing){
   this.players[id].facing=facing;
+}
+Player.prototype.getHealthbar=function(id,index){
+  return this.players[id].healthbar[index];
+}
+Player.prototype.kill=function(id){
+  this.players[id].killcount+=1;
+}
+Player.prototype.switch=function(id){
+  this.players[id].weapon=(this.players[id].weapon+1)%this.weapons.length;
+}
+Player.prototype.shoot=function(id){
+  var bullet;
+  var weapon=this.weapons[this.players[id].weapon]
+  var time=1000;
+  if(this.getFacing(id)=="right"){
+    bullet=renderer.draw(weapon,player.getX(id),player.getY(id));
+    $("#"+bullet+"."+weapon).addClass(weapon+"_animation_right");
+  }
+  else{
+    bullet=renderer.draw(weapon,player.getX(id)-30,player.getY(id));
+    $("#"+bullet+"."+weapon).addClass(weapon+"_animation_left");
+  }
+  var enemies=enemy.getEnemy();
+  for(var i=0;i<enemies.length;i++){
+    if(Math.abs(enemies[i].y-player.getY(id))<5&&Math.abs(enemies[i].x-player.getX(id))<200){
+      time=Math.abs(enemies[i].x-player.getX(id))*5;
+      enemy.hit(i,1);
+    }
+  }
+  setTimeout(
+    function(){
+      $("#"+bullet+"."+weapon).remove();
+    },time);
+  if(enemy.getEnemy().length==0){
+    this.stage+=1;
+    spawn_enemy()
+  }
 }
 
 function update(){
@@ -149,8 +195,10 @@ function update(){
     player.setY(active,60);
     y = 0;
   }*/
+  var health=player.getHealth(active)*30/100;
   player.shiftX(active, x);
   player.shiftY(active, y);
   player.move(active);
+  $("#"+player.getHealthbar(active,1)+".healthgreen").css("width",health+"px");
   window.requestAnimationFrame(update);
 }

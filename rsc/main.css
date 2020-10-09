@@ -123,6 +123,9 @@ a:hover {
 	padding: 2em;
 }
 
+.healthgreen {
+  width: 30px;
+}
 .instructions-written {
 	text-align: left !important;
 	line-height: 1.5em;
@@ -134,9 +137,10 @@ a:hover {
 }
 
 .bell_pepper_animation_right{
+  position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/bell_pepper.png');
+    /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -144,9 +148,10 @@ a:hover {
 }
 
 .bell_pepper_animation_left{
+  position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/bell_pepper.png');
+    /*background: url('img/dynamic/weapons/bell_pepper/bell_pepper.png') center;*/
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -154,9 +159,10 @@ a:hover {
 }
 
 .chiltepin_animation_right{
+    position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/chiltepin.png') center;
+    /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
     animation: move_weapon_right 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -164,9 +170,10 @@ a:hover {
 }
 
 .chiltepin_animation_left{
+    position: relative;
     width: 50px;
     height: 50px;
-    background: url('img/dynamic/weapons/chiltepin.png') center;
+    /*background: url('img/dynamic/weapons/chiltepin/chiltepin.png') center;*/
     animation: move_weapon_left 1s linear;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -223,7 +230,7 @@ a:hover {
 .garlic {
 	width: 50px;
 	height: 50px;
-	background: url('img/dynamic/weapons/garlic_bomb/garlic.png') center;
+	background: url('img/dynamic/weapons/garlic/garlic.png') center;
 	animation: move_weapon 2s;
 	animation-direction: normal;
 	animation-iteration-count: 1;
@@ -235,7 +242,7 @@ a:hover {
     90% {
         width: 35px;
         height: 35px;
-        background: url('img/dynamic/weapons/garlic_bomb/garlic_explosion.png');
+        background: url('img/dynamic/weapons/garlic/garlic_explosion.png');
         opacity: 1;
     }
     100% {
